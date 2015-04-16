@@ -7,18 +7,18 @@
 -->
 <config>
     <modules>
-        <Livetameion_Skeleton>
+        <Livetameion_Restaurant>
             <version>0.1.0</version>
-        </Livetameion_Skeleton>
+        </Livetameion_Restaurant>
     </modules>
     <global>
         <models>
             <restaurant>
-                <class>Livetameion_Skeleton_Model</class>
+                <class>Livetameion_Restaurant_Model</class>
                 <resourceModel>restaurant_resource</resourceModel>
             </restaurant>
             <restaurant_resource>
-                <class>Livetameion_Skeleton_Model_Resource</class>    
+                <class>Livetameion_Restaurant_Model_Resource</class>    
                 <entities>
                     <item>
                         <table>restaurant_item_entity</table>
@@ -38,8 +38,8 @@
         <resources>
             <restaurant_setup>
                 <setup>
-                    <module>Livetameion_Skeleton</module>
-                    <class>Livetameion_Skeleton_Model_Resource_Setup</class>
+                    <module>Livetameion_Restaurant</module>
+                    <class>Livetameion_Restaurant_Model_Resource_Setup</class>
                 </setup>
             </restaurant_setup>
             <restaurant_write>
@@ -54,4 +54,23 @@
             </restaurant_read>            
         </resources>
     </global>
+	
+	<frontend>
+        <routers>
+            <livetameion_restaurant>
+                <use>standard</use>
+                <args>
+                    <module>Livetameion_Restaurant</module>
+                    <frontName>restaurant</frontName>
+                </args>
+            </livetameion_restaurant>
+        </routers>
+        <layout>
+            <updates>
+                <restaurant>
+                    <file>livetameion_restaurant.xml</file>
+                </restaurant>
+            </updates>
+        </layout>
+    </frontend>
 </config>

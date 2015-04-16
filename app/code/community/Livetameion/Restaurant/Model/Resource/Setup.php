@@ -4,11 +4,11 @@
  * @copyright  Copyright (c) 2013 TwinCreations <http://twincreations.co.uk/>
  */
 
-class Livetameion_Skeleton_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
+class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 {
     public function getDefaultEntities() {
         return array(
-            Livetameion_Skeleton_Model_Item::ENTITY => array(
+            Livetameion_Restaurant_Model_Item::ENTITY => array(
                 'entity_model' => 'restaurant/item',
                 'table' => 'restaurant/item', /* Maps to the config.xml > global > models > restaurant_resource > entities > item */
                 'attributes' => array(

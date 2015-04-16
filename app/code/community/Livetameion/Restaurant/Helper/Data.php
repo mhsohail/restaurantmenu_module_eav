@@ -4,5 +4,5 @@
  * @copyright  Copyright (c) 2013 TwinCreations <http://twincreations.co.uk/>
  */
 
-class Livetameion_Skeleton_Helper_Data extends Mage_Core_Helper_Data
+class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data
 {}

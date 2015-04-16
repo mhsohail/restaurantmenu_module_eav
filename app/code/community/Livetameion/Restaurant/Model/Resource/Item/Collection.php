@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2013 TwinCreations <http://twincreations.co.uk/>
  */
 
-class Livetameion_Skeleton_Model_Resource_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
+class Livetameion_Restaurant_Model_Resource_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     protected function _construct()
     {
