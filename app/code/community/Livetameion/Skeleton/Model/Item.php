@@ -6,12 +6,12 @@
 
 class TC_Skeleton_Model_Item extends Mage_Core_Model_Abstract
 {
-    const ENTITY = 'tc_skeleton_item';
-    protected $_eventPrefix = 'tc_skeleton';
+    const ENTITY = 'restaurant_item';
+    protected $_eventPrefix = 'restaurant';
     protected $_eventObject = 'item';
 	
     function _construct()
     {
-        $this->_init('tc_skeleton/item');
+        $this->_init('restaurant/item');
     }
 }

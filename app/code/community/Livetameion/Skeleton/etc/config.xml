@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author     Jason at TwinCreations <twincreations.co.uk>Jason at TwinCreations <twincreations.co.uk>
+ * @copyright  Copyright (c) 2013 TwinCreations <http://twincreations.co.uk/>
+ */
+-->
+<config>
+    <modules>
+        <TC_Skeleton>
+            <version>0.1.0</version>
+        </TC_Skeleton>
+    </modules>
+    <global>
+        <models>
+            <restaurant>
+                <class>TC_Skeleton_Model</class>
+                <resourceModel>restaurant_resource</resourceModel>
+            </restaurant>
+            <restaurant_resource>
+                <class>TC_Skeleton_Model_Resource</class>    
+                <entities>
+                    <item>
+                        <table>restaurant_item_entity</table>
+                    </item>
+                    <item_entity_varchar>
+                        <table>restaurant_item_entity_varchar</table>
+                    </item_entity_varchar>     
+                    <item_entity_text>
+                        <table>restaurant_item_entity_text</table>
+                    </item_entity_text>                    
+                    <item_entity_int>
+                        <table>restaurant_item_entity_int</table>
+                    </item_entity_int>                     
+                </entities>
+            </restaurant_resource>
+        </models>
+        <resources>
+            <tc_skeleton_setup>
+                <setup>
+                    <module>TC_Skeleton</module>
+                    <class>TC_Skeleton_Model_Resource_Setup</class>
+                </setup>
+            </tc_skeleton_setup>
+            <tc_skeleton_write>
+                <connection>
+                    <use>default_write</use>
+                </connection>
+            </tc_skeleton_write>
+            <tc_skeleton_read>
+                <connection>
+                    <use>default_read</use>
+                </connection>
+            </tc_skeleton_read>            
+        </resources>
+    </global>
+</config>

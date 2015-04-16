@@ -2,16 +2,16 @@
 /**
  * @author     Jason at TwinCreations <twincreations.co.uk>
  * @copyright  Copyright (c) 2013 TwinCreations <http://twincreations.co.uk/>
- * @var        $installer TC_Skeleton_Model_Resource_Setup
+ * @var        $installer Livetameion_Restaurant_Model_Resource_Setup
  */
 
 $installer = $this;
  
 $installer->startSetup();
  
-/* Create table 'tc_skeleton/item' */
+/* Create table 'restaurant/item' */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('tc_skeleton/item'))
+    ->newTable($installer->getTable('restaurant/item'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
@@ -27,12 +27,12 @@ $table = $installer->getConnection()
         ), 'Creation Time')
     ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         ), 'Update Time')
-    ->setComment('TC Skeleton Item Table');
+    ->setComment('TC Restaurant Item Table');
 $installer->getConnection()->createTable($table);
 
-/* Create table 'tc_skeleton/item_entity_varchar' */
+/* Create table 'restaurant/item_entity_varchar' */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('tc_skeleton/item_entity_varchar'))
+    ->newTable($installer->getTable('restaurant/item_entity_varchar'))
     ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'nullable'  => false,
@@ -62,36 +62,36 @@ $table = $installer->getConnection()
         ), 'Value')
     ->addIndex(
         $installer->getIdxName(
-            'tc_skeleton_item_entity_varchar',
+            'restaurant_item_entity_varchar',
             array('entity_id', 'attribute_id', 'store_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         array('entity_id', 'attribute_id', 'store_id'),
         array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_varchar', array('attribute_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_varchar', array('attribute_id')),
         array('attribute_id'))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_varchar', array('store_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_varchar', array('store_id')),
         array('store_id'))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_varchar', array('entity_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_varchar', array('entity_id')),
         array('entity_id'))
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_varchar', 'attribute_id', 'eav/attribute', 'attribute_id'),
+        $installer->getFkName('restaurant_item_entity_varchar', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_varchar', 'entity_id', 'tc_skeleton/item', 'entity_id'),
-        'entity_id', $installer->getTable('tc_skeleton/item'), 'entity_id',
+        $installer->getFkName('restaurant_item_entity_varchar', 'entity_id', 'restaurant/item', 'entity_id'),
+        'entity_id', $installer->getTable('restaurant/item'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_varchar', 'store_id', 'core/store', 'store_id'),
+        $installer->getFkName('restaurant_item_entity_varchar', 'store_id', 'core/store', 'store_id'),
         'store_id', $installer->getTable('core/store'), 'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('TC Skeleton Item Entity Varchar');
+    ->setComment('TC Restaurant Item Entity Varchar');
 $installer->getConnection()->createTable($table);
  
-/* Create table 'tc_skeleton/item_entity_int' */
+/* Create table 'restaurant/item_entity_int' */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('tc_skeleton/item_entity_int'))
+    ->newTable($installer->getTable('restaurant/item_entity_int'))
     ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'nullable'  => false,
@@ -121,36 +121,36 @@ $table = $installer->getConnection()
         ), 'Value')
     ->addIndex(
         $installer->getIdxName(
-            'tc_skeleton_item_entity_int',
+            'restaurant_item_entity_int',
             array('entity_id', 'attribute_id', 'store_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         array('entity_id', 'attribute_id', 'store_id'),
         array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_int', array('attribute_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_int', array('attribute_id')),
         array('attribute_id'))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_int', array('store_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_int', array('store_id')),
         array('store_id'))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_int', array('entity_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_int', array('entity_id')),
         array('entity_id'))
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_int', 'attribute_id', 'eav/attribute', 'attribute_id'),
+        $installer->getFkName('restaurant_item_entity_int', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_int', 'entity_id', 'tc_skeleton/item', 'entity_id'),
-        'entity_id', $installer->getTable('tc_skeleton/item'), 'entity_id',
+        $installer->getFkName('restaurant_item_entity_int', 'entity_id', 'restaurant/item', 'entity_id'),
+        'entity_id', $installer->getTable('restaurant/item'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_int', 'store_id', 'core/store', 'store_id'),
+        $installer->getFkName('restaurant_item_entity_int', 'store_id', 'core/store', 'store_id'),
         'store_id', $installer->getTable('core/store'), 'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('TC Skeleton Item Entity Int');
+    ->setComment('TC Restaurant Item Entity Int');
 $installer->getConnection()->createTable($table);
  
-/* Create table 'tc_skeleton/item_entity_text' */
+/* Create table 'restaurant/item_entity_text' */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('tc_skeleton/item_entity_text'))
+    ->newTable($installer->getTable('restaurant/item_entity_text'))
     ->addColumn('value_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'nullable'  => false,
@@ -180,31 +180,31 @@ $table = $installer->getConnection()
         ), 'Value')
     ->addIndex(
         $installer->getIdxName(
-            'tc_skeleton_item_entity_text',
+            'restaurant_item_entity_text',
             array('entity_id', 'attribute_id', 'store_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         array('entity_id', 'attribute_id', 'store_id'),
         array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_text', array('attribute_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_text', array('attribute_id')),
         array('attribute_id'))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_text', array('store_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_text', array('store_id')),
         array('store_id'))
-    ->addIndex($installer->getIdxName('tc_skeleton_item_entity_text', array('entity_id')),
+    ->addIndex($installer->getIdxName('restaurant_item_entity_text', array('entity_id')),
         array('entity_id'))
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_text', 'attribute_id', 'eav/attribute', 'attribute_id'),
+        $installer->getFkName('restaurant_item_entity_text', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_text', 'entity_id', 'tc_skeleton/item', 'entity_id'),
-        'entity_id', $installer->getTable('tc_skeleton/item'), 'entity_id',
+        $installer->getFkName('restaurant_item_entity_text', 'entity_id', 'restaurant/item', 'entity_id'),
+        'entity_id', $installer->getTable('restaurant/item'), 'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->addForeignKey(
-        $installer->getFkName('tc_skeleton_item_entity_text', 'store_id', 'core/store', 'store_id'),
+        $installer->getFkName('restaurant_item_entity_text', 'store_id', 'core/store', 'store_id'),
         'store_id', $installer->getTable('core/store'), 'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('TC Skeleton Item Entity Text');
+    ->setComment('TC Restaurant Item Entity Text');
 $installer->getConnection()->createTable($table);
  
 $installer->endSetup();

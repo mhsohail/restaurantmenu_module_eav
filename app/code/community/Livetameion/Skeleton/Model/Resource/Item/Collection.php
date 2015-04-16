@@ -8,6 +8,6 @@ class TC_Skeleton_Model_Resource_Item_Collection extends Mage_Eav_Model_Entity_C
 {
     protected function _construct()
     {
-        $this->_init('tc_skeleton/item');
+        $this->_init('restaurant/item');
     }
 }
