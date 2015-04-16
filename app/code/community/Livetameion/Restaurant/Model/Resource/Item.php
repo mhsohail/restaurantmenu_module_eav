@@ -10,7 +10,7 @@ class Livetameion_Restaurant_Model_Resource_Item extends Mage_Eav_Model_Entity_A
     {
         $resource = Mage::getSingleton('core/resource');
         
-        $this->setType(TC_Restaurant_Model_Item::ENTITY); 
+        $this->setType(Livetameion_Restaurant_Model_Item::ENTITY); 
 		
         $this->setConnection(
             $resource->getConnection('restaurant_read'),

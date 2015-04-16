@@ -53,6 +53,12 @@
                 </connection>
             </restaurant_read>            
         </resources>
+		<helpers>
+			<!-- The following <restaurant> helper tag is used in Mage::helper('restaurant') -->
+            <restaurant>
+                <class>Livetameion_Restaurant_Helper</class>
+            </restaurant>
+        </helpers>
     </global>
 	
 	<frontend>
