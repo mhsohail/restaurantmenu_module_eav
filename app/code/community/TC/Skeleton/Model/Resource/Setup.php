@@ -9,9 +9,9 @@ class TC_Skeleton_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
  
     public function getDefaultEntities() {
         return array(
-            TC_Skeleton_Model_Skeleton::ENTITY => array(
+            TC_Skeleton_Model_Item::ENTITY => array(
                 'entity_model' => 'tc_skeleton/skeleton',
-                'table' => 'tc_skeleton/skeleton', /* Maps to the config.xml > global > models > tc_skeleton_resource > entities > skeleton */
+                'table' => 'tc_skeleton/item', /* Maps to the config.xml > global > models > tc_skeleton_resource > entities > skeleton */
                 'attributes' => array(
                     'first_name' => array(
                         'type' => 'varchar',
