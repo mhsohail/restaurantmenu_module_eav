@@ -7,18 +7,18 @@
 -->
 <config>
     <modules>
-        <TC_Skeleton>
+        <Livetameion_Skeleton>
             <version>0.1.0</version>
-        </TC_Skeleton>
+        </Livetameion_Skeleton>
     </modules>
     <global>
         <models>
             <restaurant>
-                <class>TC_Skeleton_Model</class>
+                <class>Livetameion_Skeleton_Model</class>
                 <resourceModel>restaurant_resource</resourceModel>
             </restaurant>
             <restaurant_resource>
-                <class>TC_Skeleton_Model_Resource</class>    
+                <class>Livetameion_Skeleton_Model_Resource</class>    
                 <entities>
                     <item>
                         <table>restaurant_item_entity</table>
@@ -36,22 +36,22 @@
             </restaurant_resource>
         </models>
         <resources>
-            <tc_skeleton_setup>
+            <restaurant_setup>
                 <setup>
-                    <module>TC_Skeleton</module>
-                    <class>TC_Skeleton_Model_Resource_Setup</class>
+                    <module>Livetameion_Skeleton</module>
+                    <class>Livetameion_Skeleton_Model_Resource_Setup</class>
                 </setup>
-            </tc_skeleton_setup>
-            <tc_skeleton_write>
+            </restaurant_setup>
+            <restaurant_write>
                 <connection>
                     <use>default_write</use>
                 </connection>
-            </tc_skeleton_write>
-            <tc_skeleton_read>
+            </restaurant_write>
+            <restaurant_read>
                 <connection>
                     <use>default_read</use>
                 </connection>
-            </tc_skeleton_read>            
+            </restaurant_read>            
         </resources>
     </global>
 </config>

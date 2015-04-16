@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2013 TwinCreations <http://twincreations.co.uk/>
  */
 
-class TC_Skeleton_Model_Item extends Mage_Core_Model_Abstract
+class Livetameion_Skeleton_Model_Item extends Mage_Core_Model_Abstract
 {
     const ENTITY = 'restaurant_item';
     protected $_eventPrefix = 'restaurant';
