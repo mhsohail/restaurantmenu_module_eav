@@ -49,9 +49,8 @@ class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_
 		$this->_validateCustomerLogin();
 		$this->loadLayout();    
 		$this->_initLayoutMessages('restaurant/session');  
-        $this->renderLayout();    
-     
-    }
+        $this->renderLayout();
+	}
 	
 	public function editAction() {
 		$this->_validateCustomerLogin();
@@ -150,12 +149,8 @@ class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_
 			$menuModel
 				->setMerchantId($customer_id)
 				->save();
-		} elseif(!empty($data)) {
-			$menuModel
-				->setMerchantId($customer_id)
-				->save();
 		}
-		$restaurantmenu_id = $menuModel->getId();
+		$restaurantmenu_id = $menuModel->getEntityId();
 		$menuModel->unsetData();
 		
 		Mage::getSingleton('core/session')->addSuccess('Successfully saved');
@@ -182,16 +177,16 @@ class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_
 					$uploader->setFilesDispersion(false);
 					
 					$path = Mage::getBaseDir('media') . DS."restaurant_menu/" ;
-					$uplaoedFilename=$new_file_name.$_FILES['item_image']['name'][$i];
-					$uploader->save($path, $new_file_name.$_FILES['item_image']['name'][$i]);
+					$uplaoedFilename = $new_file_name . $_FILES['item_image']['name'][$i];
+					$uploader->save($path, $new_file_name . $_FILES['item_image']['name'][$i]);
 					//$uploader->save($path, $new_file_name);
-					$data['item_image'] = $new_file_name.$_FILES['item_image']['name'][$i];
+					$data['item_image'] = $new_file_name . $_FILES['item_image']['name'][$i];
 					//$data['item_image'] = $new_file_name;
 					
 					// SAVE POSTED DATA
 					$itemModel = Mage::getModel('restaurant/item');
 					if(!empty($data)) {
-						$itemModel->setRestaurantmenuId($restaurantmenu_id)
+						$itemModel->setRestaurantMenuId($restaurantmenu_id)
 							->setName($data['item_name'][$i])
 							->setImage($uplaoedFilename)
 							->setPrice($data['item_price'][$i])
