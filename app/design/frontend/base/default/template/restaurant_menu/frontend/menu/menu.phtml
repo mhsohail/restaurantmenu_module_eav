@@ -1,0 +1,74 @@
+<style>
+.common-orange-button {
+	background: none repeat scroll 0 0 #3399cc;
+	border: 1px solid #3399cc;
+	color: #fff;
+	display: block;
+	font: bold 12px/19px Arial,Helvetica,sans-serif;
+	height: 19px;
+	padding: 0 8px;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+	float: right;
+	margin: 0 0 5px;
+	width: auto;
+}
+
+.adverizent a:hover {
+	color: #fff !important;
+}
+</style>
+<?php $getStoreData= Mage::helper('restaurant')->getStoreData();
+$getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
+//print_r($getAllCategoriesDATA);?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php //$collection = $this->getCollection(); ?>
+<?php $collection = Mage::getModel('restaurant/menu')->getCollection(); ?>
+
+<div class="page-title adverizent">
+	<h1><?php echo $this->__('My Menus') ?></h1>
+	<a href="<?php echo $this->getUrl('restaurant/index/add') ?>" class="common-orange-button"><?php echo $this->__('Add Menu') ?></a><div class="clear"></div>
+</div>
+<div style="clear:both"></div>
+<?php echo $this->getToolbarHtml(); ?>
+<?php if($collection->getSize()): ?>
+	<table class="data-table" id="my-custom-table">
+		<col width="1" />
+		<col width="1" />
+		<col />
+		<col width="1" />
+		<col width="1" />
+		<col width="1" />
+		<thead>
+			<tr>
+				<th><?php echo $this->__('ID #') ?></th>
+				<th><span class="nobr"><?php echo $this->__('Number of items') ?></span></th>
+				<th><span class="nobr"><?php echo $this->__('Created') ?></span></th>
+				<th><span class="nobr"><?php echo $this->__('Action') ?></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $_odd = '';
+			$path = Mage::getBaseUrl('media') ."restaurant_menu/";
+			 ?>
+			<?php foreach ($collection as $_obj): ?>
+				<tr>
+					<td><?php echo $_obj->getRestaurantmenuId(); ?></td>
+					<?php $menu_items = Mage::getModel('restaurant/item')->getCollection()->addFieldToFilter('restaurantmenu_id', $_obj->getRestaurantmenuId()); ?>
+					<td><?php echo $menu_items->getSize(); ?></td>
+					<td><?php echo $this->formatDate($_obj->getCreatedTime()) ?></td>
+					<td>
+						<a href="<?php echo $this->getUrl('restaurant/index/show', array('id' => $_obj->getRestaurantmenuId())) ?>"><?php echo $this->__('Show') ?></a>
+						/
+						<a href="<?php echo $this->getUrl('restaurant/index/delete', array('id' => $_obj->getRestaurantmenuId())) ?>"><?php echo $this->__('Delete') ?></a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<script type="text/javascript">decorateTable('my-custom-table');</script>
+<?php echo $this->getToolbarHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('No restaurant menus available.'); ?></p>
+<?php endif ?>

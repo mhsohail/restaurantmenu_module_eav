@@ -1,0 +1,116 @@
+<div class="page-title">
+	<h1><?php echo $this->__('Menu Item - Edit') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php
+$item = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('id'));
+?>
+<form action="<?php echo $this->getUrl('*/item/update') ?>" method="post" id="form-validate-restaurant" enctype="multipart/form-data">
+	<div class="fieldset">
+		<?php echo $this->getBlockHtml('formkey') ?>
+		<h2 class="legend"><?php echo $this->__('Menu Item Information') ?></h2>
+		<input type='hidden' name='item_id' value='<?php echo $this->getRequest()->getParam('id'); ?>' />
+		<ul class="form-list" id='menu_item_form_fields'>
+			<div class='menu_item'>
+				<li>
+					<div class="field">
+						<label for="stores" class="required"><em>*</em><?php echo $this->__('Item Name') ?></label>
+						<div class="input-box">
+							<input type='text' name='item_name' class='input-text required-entry' value='<?php echo $item->getName(); ?>' />
+						</div>
+					</div>
+				</li>
+				
+				<li>
+					<div class="field">
+						<label for="stores" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
+						<div class="input-box">
+							<input type='text' name='item_price' class='input-text required-entry' value='<?php echo $item->getPrice(); ?>' />
+						</div>
+					</div>			
+				</li>
+				
+				<li>
+					<div class="field">
+						<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
+						<div class="input-box">
+							<select name='category' class='input-text required-entry'>
+								<option>APPETIZERS & TAPAS</option>
+								<option>WOOD-FIRE SIGNATURES</option>
+								<option>SOUPS</option>
+								<option>PIZZA</option>
+								<option>SANDWICHES</option>
+								<option>PASTA</option>
+								<option>SEAFOOD</option>
+								<option>SIDES</option>
+								<option>DESSERTS</option>
+								<option>BEVERAGES</option>
+							</select>
+						</div>
+					</div>			
+				</li>
+				
+				<li>
+					<div class="field">
+						<div class="upload-head">
+							<label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
+						</div>
+						<div class="input-box">
+							<input type="file" id="item_image" name='item_image' title="<?php echo $this->__('Image') ?>" class="input-text required-entry" />
+						</div>
+					</div>
+				</li>
+			</div>
+		</ul>
+		
+		<div class="buttons-set">
+			<p class="required"><?php echo $this->__('* Required Fields') ?></p>
+			<p class="back-link">
+				<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>">
+					<small>&laquo; </small>
+					<?php echo $this->__('Back') ?>
+				</a>
+			</p>
+			<button type="submit" title="<?php echo $this->__('Update') ?>" class="button"><span><span><?php echo $this->__('Update') ?></span></span></button>
+		</div>
+	</div>
+</form>
+
+<?php
+
+function getCategoriesFor($store_id) {
+	if($store_id) {
+		$html_ .='<select name="category_ids[]" id="category" class="required-entry select multiselect" multiple="multiple">';	
+			$category=Mage::getModel('catalog/category')
+			->getCollection()
+			->setStoreId($store_id)
+			->setOrder('position', 'asc')
+			->addFieldToFilter('is_active', array('eq'=>'1'))
+			->addAttributeToSelect('*');
+			
+		foreach ($category as $cat) {
+			$html_ .='<option value="'.$cat->getId().'">'.$cat->getName().'</option>';
+		}
+		$html_ .='</select>';
+		return $html_ ;
+	} else {
+		return '';
+	}
+}
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+var productForm = new VarienForm('form-validate-restaurant', true);
+//]]>
+function callController(sid) {
+	new Ajax.Request("<?php echo $this->getUrl('restaurant/index/gettoreategory') ?>", {
+		method: 'Post',
+		parameters: {'store_id':sid},
+		onComplete: function(transport) {
+			document.getElementById('category_html').innerHTML=transport.responseText;
+			//alert(transport.responseText);
+		}
+	});
+}
+</script>
