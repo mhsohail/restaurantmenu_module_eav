@@ -19,13 +19,13 @@
 	color: #fff !important;
 }
 </style>
-<?phpecho "asdfasdfasfasdfsad";exit; $getStoreData= Mage::helper('restaurant')->getStoreData();
-$getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
+<?php $getStoreData = Mage::helper('restaurant')->getStoreData();
+$getAllCategoriesDATA = Mage::helper('restaurant')->getAllCategoriesDATA();
 //print_r($getAllCategoriesDATA);?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php //$collection = $this->getCollection(); ?>
 <?php $collection = Mage::getModel('restaurant/menu')->getCollection(); ?>
-
+<?php echo $collection->getSize(); exit;?>
 <div class="page-title adverizent">
 	<h1><?php echo $this->__('My Menus') ?></h1>
 	<a href="<?php echo $this->getUrl('restaurant/index/add') ?>" class="common-orange-button"><?php echo $this->__('Add Menu') ?></a><div class="clear"></div>

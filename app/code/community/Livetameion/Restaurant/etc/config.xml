@@ -12,6 +12,11 @@
         </Livetameion_Restaurant>
     </modules>
     <global>
+		<blocks>
+            <restaurant>
+                <class>Livetameion_Restaurant_Block</class>
+            </restaurant>            
+        </blocks>
         <models>
             <restaurant>
                 <class>Livetameion_Restaurant_Model</class>

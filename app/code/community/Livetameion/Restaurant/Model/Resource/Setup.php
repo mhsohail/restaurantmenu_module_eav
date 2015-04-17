@@ -37,7 +37,7 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
                         'sort_order' => 30,
                         'position' => 30,
                         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-                    ),     
+                    ),
                     'category' => array(
                         'type'               => 'text',
                         'label'              => 'Category',
@@ -137,10 +137,10 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
                         'position' => 10,
                         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                     ),
-					'name' => array(
+					'merchant_id' => array(
                         'type' => 'int',
-                        'label' => 'Name',
-                        'input' => 'select',
+                        'label' => 'Merchant Id',
+                        'input' => 'hidden',
                         'required' => true,
                         'sort_order' => 10,
                         'position' => 10,
