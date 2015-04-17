@@ -1,33 +1,34 @@
 <?php
 class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_Action {
-	
-	protected function _getSession() {
-		return Mage::getSingleton('restaurant/session');
-	}
-	
-	protected function _validateCustomerLogin() {
-		$session = Mage::getSingleton('customer/session');
-		if (!$session->isLoggedIn()) {
-			$session->setAfterAuthUrl(Mage::helper('core/url')->getCurrentUrl());
-			$session->setBeforeAuthUrl(Mage::helper('core/url')->getCurrentUrl());
-			$this->_redirect('customer/account/login/');
-			return $this;
-		} elseif(!Mage::helper('restaurant')->isMarketplaceActiveSellar()){
-			$this->_redirect('customer/account/');
-		}
-	}
+
+/**
+     *    Create session 
+     * */
+    protected function _getSession() {
+        return Mage::getSingleton('restaurant/session');
+    }
+
+	/**
+     *    validate Customer Login and redirect previous page 
+     * */
+    protected function _validateCustomerLogin() {
+        $session = Mage::getSingleton('customer/session');
+        if (!$session->isLoggedIn()) {
+            $session->setAfterAuthUrl(Mage::helper('core/url')->getCurrentUrl());
+            $session->setBeforeAuthUrl(Mage::helper('core/url')->getCurrentUrl());
+            $this->_redirect('customer/account/login/');
+            return $this;
+        }elseif(!Mage::helper('restaurant')->isMarketplaceActiveSellar()){
+            $this->_redirect('customer/account/');
+        }
+    }
 	
 	public function indexAction() {
-		//echo "zeeeeeee";
-		Mage::getModel('restaurant/item')->getTest();
-		/*
 		$this->_validateCustomerLogin();
 		$this->loadLayout();  
 		$this->_initLayoutMessages('restaurant/session');  
 		$this->renderLayout();
-		*/
 	}
-	
     public function addAction() {
 		$this->_validateCustomerLogin();
 		$this->loadLayout();
@@ -38,8 +39,8 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 	public function editAction() {
 		$this->_validateCustomerLogin();
 		$this->loadLayout();    
-		$this->_initLayoutMessages('restaurant/session');
-		$this->renderLayout(); 
+		$this->_initLayoutMessages('restaurant/session');  
+        $this->renderLayout(); 
     }
 	
 	public function gettoreategoryAction() {
@@ -150,9 +151,10 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 					
 					// SAVE POSTED DATA
 					$data = Mage::app()->getRequest()->getPost();
+					
 					$itemModel = Mage::getModel('restaurant/item');
 					if(!empty($data)) {
-						$itemModel->setRestaurantmenuId($restaurantmenu_id)
+						$itemModel->setRestaurantMenuId($restaurantmenu_id)
 							->setName($data['item_name'][$i])
 							->setImage($uplaoedFilename)
 							->setPrice($data['item_price'][$i])
@@ -278,3 +280,4 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 		return $ip;
 	}
 }
+

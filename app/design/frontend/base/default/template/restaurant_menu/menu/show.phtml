@@ -58,7 +58,7 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 			<?php foreach ($collection as $_obj): ?>
 				<?php $_obj = Mage::getModel('restaurant/item')->load($_obj->getEntityId())?>
 				<tr>
-					<td><?php echo $_obj->getRestaurantMenuId() ?></td>
+					<td><?php echo $_obj->getEntityId() ?></td>
 					<td><?php echo $_obj->getName() ?></td>
 					<td><span class="nobr"><img src="<?php echo $path.$_obj->getImage(); ?>" width="120"></span></td>
 					<td><?php echo $_obj->getPrice() ?></td>
