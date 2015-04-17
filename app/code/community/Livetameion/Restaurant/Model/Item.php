@@ -14,4 +14,8 @@ class Livetameion_Restaurant_Model_Item extends Mage_Core_Model_Abstract
     {
         $this->_init('restaurant/item');
     }
+	
+	function getTest() {
+		echo "get test method...";
+	}
 }

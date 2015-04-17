@@ -18,10 +18,14 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 	}
 	
 	public function indexAction() {
+		//echo "zeeeeeee";
+		Mage::getModel('restaurant/item')->getTest();
+		/*
 		$this->_validateCustomerLogin();
 		$this->loadLayout();  
 		$this->_initLayoutMessages('restaurant/session');  
 		$this->renderLayout();
+		*/
 	}
 	
     public function addAction() {

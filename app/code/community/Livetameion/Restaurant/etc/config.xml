@@ -31,7 +31,33 @@
                     </item_entity_text>                    
                     <item_entity_int>
                         <table>restaurant_item_entity_int</table>
-                    </item_entity_int>                     
+                    </item_entity_int>
+					
+					<category>
+                        <table>restaurant_category_entity</table>
+                    </category>
+                    <category_entity_varchar>
+                        <table>restaurant_category_entity_varchar</table>
+                    </category_entity_varchar>     
+                    <category_entity_text>
+                        <table>restaurant_category_entity_text</table>
+                    </category_entity_text>                    
+                    <category_entity_int>
+                        <table>restaurant_category_entity_int</table>
+                    </category_entity_int>
+					
+					<menu>
+                        <table>restaurant_menu_entity</table>
+                    </menu>
+                    <menu_entity_varchar>
+                        <table>restaurant_menu_entity_varchar</table>
+                    </menu_entity_varchar>     
+                    <menu_entity_text>
+                        <table>restaurant_menu_entity_text</table>
+                    </menu_entity_text>                    
+                    <menu_entity_int>
+                        <table>restaurant_menu_entity_int</table>
+                    </menu_entity_int>
                 </entities>
             </restaurant_resource>
         </models>
