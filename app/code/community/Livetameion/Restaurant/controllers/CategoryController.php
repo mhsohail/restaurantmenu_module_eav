@@ -151,6 +151,7 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 							->setName($data['name'][$i])
 							->setMenuIds("1,2,3")
 							->setItemIds("2,3,4")
+							->setMerchantId($customer_id)
 							->setCategorysetId($categoryset_id)
 							->setImage($uplaoedFilename)
 							->save();
@@ -198,7 +199,7 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 				
 				$data = array(
 					'name' => $post['name'],
-					'image' => $post['image'],
+					//'image' => $post['image'],
 				);
 				
 				$model = Mage::getModel('restaurant/category')->load($this->getRequest()->getParam('category_id'))->addData($data);

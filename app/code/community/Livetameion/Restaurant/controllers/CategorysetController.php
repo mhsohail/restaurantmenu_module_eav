@@ -120,15 +120,15 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 	
 	public function saveAction() {
 		$this->_validateCustomerLogin();
-		$customer_id = Mage::getSingleton('customer/session')->getId(); // Get Current User id
+		$customer_id = Mage::getSingleton('customer/session')->getId();
 		$data = Mage::app()->getRequest()->getPost();
 		
 		$categorysetModel = Mage::getModel('restaurant/categoryset');
 		if(!empty($data)) {
 			$categorysetModel
 				->setMerchantId($customer_id)
-				->setName("Category Name")
-				->setIsActive(1)
+				->setName($data['name'])
+				->setIsActive(0)
 				->save();
 		}
 		$categoryset_id = $categorysetModel->getEntityId();
@@ -171,6 +171,7 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 							->setName($data['name'][$i])
 							->setMenuIds("1,2,3")
 							->setItemIds("2,3,4")
+							->setMerchantId($customer_id)
 							->setCategorysetId($categoryset_id)
 							->setImage($uplaoedFilename)
 							->save();
@@ -192,7 +193,7 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 	
 	public function updateAction() {
 		$this->_validateCustomerLogin();
-		$customer_id = Mage::getSingleton('customer/session')->getId(); // Get Current User id
+		$customer_id = Mage::getSingleton('customer/session')->getId();
 		
 		if(isset($_FILES['item_image']['name']) and (file_exists($_FILES['item_image']['tmp_name']))) {
 			try {
@@ -255,22 +256,22 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 		$this->_redirect("*/*/");
 	}
 	
-	
-	public function statusAction()
-	{
-		 $id = $this->getRequest()->getParam('id');
-		 $status = $this->getRequest()->getParam('status');
-		//$id = 30;
-		if($status=='active')
-		{
-			$arrcustData = array('active_status'=>'1');
-		}
-		else if($status=='in-active')
-		{
-			$arrcustData = array('active_status'=>'0');
+	public function statusAction() {
+		$customer_id = Mage::getSingleton('customer/session')->getId();
+		$id = $this->getRequest()->getParam('id');
+		$status = $this->getRequest()->getParam('status');
+		$arrcustData = array('is_active' => $status);
+		
+		// make all category sets in-active first
+		$categorysets = Mage::getModel('restaurant/categoryset')->getCollection();
+		foreach($categorysets as $categoryset) {
+			$categoryset = Mage::getModel('restaurant/categoryset')->load($categoryset->getEntityId());
+			$categoryset->setIsActive(0);
+			$categoryset->save();
 		}
 		
-		$model = Mage::getModel('restaurant/menu')->load($id)->addData($arrcustData );  
+		// now make the clicked category set active
+		$model = Mage::getModel('restaurant/categoryset')->load($id)->addData($arrcustData );
 		try {
 			$model->setId($id)->save();
 			//echo "Data deleted successfully.";

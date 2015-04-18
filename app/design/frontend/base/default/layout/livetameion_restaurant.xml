@@ -44,7 +44,11 @@
 				<block type='restaurant/menu'> means, the block must be defined in etc/config.xml file.
 				also, there should be Menu.php class in Block folder
 			-->
-			<block type="restaurant/menu" name="restaurant_menu" template="restaurant_menu/menu/menu.phtml" />
+			
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/menu/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/menu/menu.phtml" />
+			</block>
 			<!--    <block type="restaurant/collection" name="restaurant_collection" template="restaurant/collection.phtml"/>-->
         </reference>
 		<!--    <reference name="content">

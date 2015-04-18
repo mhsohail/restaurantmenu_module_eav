@@ -26,11 +26,6 @@ $getAllCategoriesDATA = Mage::helper('restaurant')->getAllCategoriesDATA();
 <?php //$collection = $this->getCollection(); ?>
 <?php $collection = Mage::getModel('restaurant/menu')->getCollection(); ?>
 
-	<a href="<?php echo $this->getUrl('restaurant/index/index') ?>" class=""><?php echo $this->__('Menus') ?></a>
-	|
-	<a href="<?php echo $this->getUrl('restaurant/categoryset/index') ?>" class=""><?php echo $this->__('Categories') ?></a>
-	<br /><br />
-
 <div class="page-title adverizent">
 	<h1><?php echo $this->__('My Menus') ?></h1>
 	<a href="<?php echo $this->getUrl('restaurant/index/add') ?>" class="common-orange-button"><?php echo $this->__('Add Menu') ?></a><div class="clear"></div>

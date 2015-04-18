@@ -44,16 +44,28 @@
 						<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
 						<div class="input-box">
 							<select name='category[]' class='input-text required-entry'>
-								<option>APPETIZERS & TAPAS</option>
-								<option>WOOD-FIRE SIGNATURES</option>
-								<option>SOUPS</option>
-								<option>PIZZA</option>
-								<option>SANDWICHES</option>
-								<option>PASTA</option>
-								<option>SEAFOOD</option>
-								<option>SIDES</option>
-								<option>DESSERTS</option>
-								<option>BEVERAGES</option>
+								<?php
+								$customer_id = Mage::getSingleton('customer/session')->getId();
+								$categorysets = Mage::getModel('restaurant/categoryset')
+									->getCollection()
+									->addAttributeToFilter("is_active", 1)
+									->addAttributeToFilter("merchant_id", $customer_id);
+								foreach($categorysets as $categoryset) {
+									$categoryset = Mage::getModel('restaurant/categoryset')->load($categoryset->getEntityId());
+									$active_categoryset_id = $categoryset->getEntityId();
+								}
+								
+								$categories = Mage::getModel('restaurant/category')
+									->getCollection()
+									->addAttributeToFilter("merchant_id", $customer_id)
+									->addAttributeToFilter("categoryset_id", $active_categoryset_id);
+								foreach($categories as $category) {
+									$category = Mage::getModel('restaurant/category')->load($category->getEntityId());
+									?>
+									<option value='<?php echo $this->__($category->getEntityId()) ?>'><?php echo $this->__($category->getName()) ?></option>
+									<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>			
