@@ -252,7 +252,7 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 			//echo $e->getMessage(); 
 			Mage::getSingleton('core/session')->addSuccess($e->getMessage());
 		}
-		$this->_redirect("*/index/");
+		$this->_redirect("*/*/");
 	}
 	
 	

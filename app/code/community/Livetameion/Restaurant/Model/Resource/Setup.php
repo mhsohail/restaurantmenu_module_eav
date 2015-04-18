@@ -140,6 +140,15 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
                         'position' => 10,
                         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                     ),
+					'parent_category_id' => array(
+                        'type' => 'int',
+                        'label' => 'Parent Category Id',
+                        'input' => 'text',
+                        'required' => true,
+                        'sort_order' => 10,
+                        'position' => 10,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
                     'is_active' => array(
                         'type' => 'int',
                         'label' => 'Is Active',

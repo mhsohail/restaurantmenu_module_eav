@@ -115,17 +115,17 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 		$this->_validateCustomerLogin();
 		$customer_id = Mage::getSingleton('customer/session')->getId(); // Get Current User id
 		$data = Mage::app()->getRequest()->getPost();
-		$restaurantmenu_id = $data['menu_id'];
+		$categoryset_id = $data['categoryset_id'];
 		
-		for($i = 0; $i < count($data['item_name']); $i++) {
-			if(isset($_FILES['item_image']['name']) and (file_exists($_FILES['item_image']['tmp_name'][$i]))) {
+		for($i = 0; $i < count($data['name']); $i++) {
+			if(isset($_FILES['image']['name']) and (file_exists($_FILES['image']['tmp_name'][$i]))) {
 				try {
 					$uploader = new Varien_File_Uploader(array(
-						'name' => $_FILES['item_image']['name'][$i],
-						'type' => $_FILES['item_image']['type'][$i],
-						'tmp_name' => $_FILES['item_image']['tmp_name'][$i],
-						'error' => $_FILES['item_image']['error'][$i],
-						'size' => $_FILES['item_image']['size'][$i]
+						'name' => $_FILES['image']['name'][$i],
+						'type' => $_FILES['image']['type'][$i],
+						'tmp_name' => $_FILES['image']['tmp_name'][$i],
+						'error' => $_FILES['image']['error'][$i],
+						'size' => $_FILES['image']['size'][$i]
 					));
 					
 					//print_r($uploader);
@@ -138,24 +138,23 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 					$uploader->setFilesDispersion(false);
 					
 					$path = Mage::getBaseDir('media') . DS."restaurant_menu/" ;
-					$uplaoedFilename=$new_file_name.$_FILES['item_image']['name'][$i];
-					$uploader->save($path, $new_file_name.$_FILES['item_image']['name'][$i]);
+					$uplaoedFilename=$new_file_name.$_FILES['image']['name'][$i];
+					$uploader->save($path, $new_file_name.$_FILES['image']['name'][$i]);
 					//$uploader->save($path, $new_file_name);
-					$data['item_image'] = $new_file_name.$_FILES['item_image']['name'][$i];
+					$data['image'] = $new_file_name.$_FILES['image']['name'][$i];
 					//$data['item_image'] = $new_file_name;
 					
 					// SAVE POSTED DATA
-					$data = Mage::app()->getRequest()->getPost();
-					
-					$itemModel = Mage::getModel('restaurant/item');
+					$categoryModel = Mage::getModel('restaurant/category');
 					if(!empty($data)) {
-						$itemModel->setRestaurantMenuId($restaurantmenu_id)
-							->setName($data['item_name'][$i])
+						$categoryModel
+							->setName($data['name'][$i])
+							->setMenuIds("1,2,3")
+							->setItemIds("2,3,4")
+							->setCategorysetId($categoryset_id)
 							->setImage($uplaoedFilename)
-							->setPrice($data['item_price'][$i])
-							->setCategory($data['category'][$i])
 							->save();
-						$itemModel->unsetData();
+						$categoryModel->unsetData();
 					}
 					Mage::getSingleton('core/session')->addSuccess('Successfully saved');
 					Mage::getSingleton('core/session')->settestData(false);
@@ -168,43 +167,42 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 				}
 			}
 		}
-		$this->_redirect("*/index/");
+		$this->_redirect("*/*/");
 	}
 	
 	public function updateAction() {
 		$this->_validateCustomerLogin();
 		$customer_id = Mage::getSingleton('customer/session')->getId(); // Get Current User id
+		$post = Mage::app()->getRequest()->getPost();
 		
-		if(isset($_FILES['item_image']['name']) and (file_exists($_FILES['item_image']['tmp_name']))) {
+		if(isset($_FILES['image']['name']) and (file_exists($_FILES['image']['tmp_name']))) {
 			try {
-				$uploader = new Varien_File_Uploader('item_image');
+				$uploader = new Varien_File_Uploader('image');
 				//print_r($uploader);
 				$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
 				
 				$uploader->setAllowRenameFiles(false);
-				$new_file_name=time().$customer_id;
+				$new_file_name = time() . $customer_id;
 				// setAllowRenameFiles(true) -> move your file in a folder the magento way
 				// setAllowRenameFiles(true) -> move your file directly in the $path folder
 				$uploader->setFilesDispersion(false);
 				
 				$path = Mage::getBaseDir('media') . DS."restaurant_menu/";
-				$uplaoedFilename=$new_file_name.$_FILES['item_image']['name'];
-				$uploader->save($path, $new_file_name.$_FILES['item_image']['name']);
+				$uplaoedFilename = $new_file_name . $_FILES['image']['name'];
+				$uploader->save($path, $new_file_name.$_FILES['image']['name']);
 				//$uploader->save($path, $new_file_name);
 				
 				$post = Mage::app()->getRequest()->getPost();
-				$post['item_image'] = $new_file_name.$_FILES['item_image']['name'];
-				$all_categories=@implode(',', $post['category_ids']);
+				$post['image'] = $new_file_name . $_FILES['image']['name'];
+				$all_categories = @implode(',', $post['category_ids']);
 				
 				$data = array(
-					'name' => $post['item_name'],
-					'price' => $post['item_price'],
-					'category' => $post['category'],
-					'image' => $post['item_image'],
+					'name' => $post['name'],
+					'image' => $post['image'],
 				);
 				
-				$model = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('item_id'))->addData($data);
-				$ad_id = $this->getRequest()->getParam('item_id');
+				$model = Mage::getModel('restaurant/category')->load($this->getRequest()->getParam('category_id'))->addData($data);
+				$ad_id = $this->getRequest()->getParam('category_id');
 				
 				try {
 					$model->setId($ad_id)->save();
@@ -217,13 +215,13 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 				Mage::getSingleton('core/session')->addSuccess($e);
 				echo $e->getMessage();
 			}
-			$this->_redirect("*/index/");
+			$this->_redirect("*/*/");
 		}
 	}
 	
 	public function deleteAction() {
 		$id = $this->getRequest()->getParam('id');
-		$model = Mage::getModel('restaurant/item');
+		$model = Mage::getModel('restaurant/category');
 		
 		try {
 			$model->setId($id)->delete();
