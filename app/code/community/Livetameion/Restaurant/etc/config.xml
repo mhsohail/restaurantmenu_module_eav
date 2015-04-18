@@ -51,6 +51,19 @@
                         <table>restaurant_category_entity_int</table>
                     </category_entity_int>
 					
+					<categoryset>
+                        <table>restaurant_categoryset_entity</table>
+                    </categoryset>
+                    <categoryset_entity_varchar>
+                        <table>restaurant_categoryset_entity_varchar</table>
+                    </categoryset_entity_varchar>     
+                    <categoryset_entity_text>
+                        <table>restaurant_categoryset_entity_text</table>
+                    </categoryset_entity_text>
+                    <categoryset_entity_int>
+                        <table>restaurant_categoryset_entity_int</table>
+                    </categoryset_entity_int>
+					
 					<menu>
                         <table>restaurant_menu_entity</table>
                     </menu>

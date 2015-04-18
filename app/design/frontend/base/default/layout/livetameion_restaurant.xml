@@ -313,7 +313,7 @@
         </action>   
         <update handle="customer_account"/>
 		<reference name="content">
-			<block type="restaurant/add" name="restaurant_add" template="restaurant_menu/item/add.phtml"/>
+			<block type="restaurant/add" name="restaurant_add" template="restaurant_menu/categoryset/add.phtml"/>
         </reference>
     </livetameion_restaurant_categoryset_add>
 	
@@ -347,6 +347,36 @@
 			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/item/edit.phtml"/>
         </reference>
     </livetameion_restaurant_categoryset_edit>
+	
+	<livetameion_restaurant_categoryset_show>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="head">            
+			<action method="setTitle" translate="title" module="restaurant">
+				<title>Edit Menu Item</title>
+            </action>
+			
+			<!-- the above code works well. the following code shows the following error message,
+			when we visit the link http://localhost/clikaroo/index.php/restaurant/index/add/ from customer dashboard
+			so i commented it i think, the below code wants to communicate with another module called marketplace
+			-->
+			<!--
+				( ! ) Fatal error: Class 'Mage_Marketplace_Helper_Data' not found in E:\wamp\www\clikaroo\app\Mage.php on line 547
+			-->
+			<!--
+			<action method="setTitle" translate="title" module="marketplace">
+                <title>Add Advertising Area</title>
+            </action>
+			-->
+        </reference>
+        <action method="setTemplate">
+            <template>page/1column.phtml</template>
+        </action>   
+        <update handle="customer_account"/>
+		<reference name="content">
+			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/categoryset/show.phtml"/>
+        </reference>
+    </livetameion_restaurant_categoryset_show>
 	
 	<livetameion_restaurant_cmenu_show>
 		<remove name="right" />

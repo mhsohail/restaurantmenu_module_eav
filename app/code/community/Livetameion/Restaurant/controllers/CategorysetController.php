@@ -38,6 +38,13 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 		$this->renderLayout(); 
 	}
 	
+	public function showAction() {
+		$this->_validateCustomerLogin();
+		$this->loadLayout();  
+		$this->_initLayoutMessages('restaurant/session');  
+		$this->renderLayout();
+	}
+	
 	public function gettoreategoryAction() {
 		//print_r($_POST);
 		$this->_validateCustomerLogin();
@@ -115,47 +122,59 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 		$this->_validateCustomerLogin();
 		$customer_id = Mage::getSingleton('customer/session')->getId(); // Get Current User id
 		$data = Mage::app()->getRequest()->getPost();
-		$restaurantmenu_id = $data['menu_id'];
 		
-		for($i = 0; $i < count($data['item_name']); $i++) {
-			if(isset($_FILES['item_image']['name']) and (file_exists($_FILES['item_image']['tmp_name'][$i]))) {
+		$categorysetModel = Mage::getModel('restaurant/categoryset');
+		if(!empty($data)) {
+			$categorysetModel
+				->setMerchantId($customer_id)
+				->setName("Category Name")
+				->setIsActive(1)
+				->save();
+		}
+		$categoryset_id = $categorysetModel->getEntityId();
+		$categorysetModel->unsetData();
+		
+		for($i = 0; $i < count($data['name']); $i++) {
+			if(isset($_FILES['image']['name']) and (file_exists($_FILES['image']['tmp_name'][$i]))) {
 				try {
 					$uploader = new Varien_File_Uploader(array(
-						'name' => $_FILES['item_image']['name'][$i],
-						'type' => $_FILES['item_image']['type'][$i],
-						'tmp_name' => $_FILES['item_image']['tmp_name'][$i],
-						'error' => $_FILES['item_image']['error'][$i],
-						'size' => $_FILES['item_image']['size'][$i]
+						'name' => $_FILES['image']['name'][$i],
+						'type' => $_FILES['image']['type'][$i],
+						'tmp_name' => $_FILES['image']['tmp_name'][$i],
+						'error' => $_FILES['image']['error'][$i],
+						'size' => $_FILES['image']['size'][$i]
 					));
 					
 					//print_r($uploader);
 					//$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
 					
 					$uploader->setAllowRenameFiles(false);
-					$new_file_name=time().$customer_id;
+					$new_file_name = time() . $customer_id;
 					// setAllowRenameFiles(true) -> move your file in a folder the magento way
 					// setAllowRenameFiles(true) -> move your file directly in the $path folder
 					$uploader->setFilesDispersion(false);
 					
 					$path = Mage::getBaseDir('media') . DS."restaurant_menu/" ;
-					$uplaoedFilename=$new_file_name.$_FILES['item_image']['name'][$i];
-					$uploader->save($path, $new_file_name.$_FILES['item_image']['name'][$i]);
+					$uplaoedFilename = $new_file_name . $_FILES['image']['name'][$i];
+					$uploader->save($path, $new_file_name . $_FILES['image']['name'][$i]);
 					//$uploader->save($path, $new_file_name);
-					$data['item_image'] = $new_file_name.$_FILES['item_image']['name'][$i];
-					//$data['item_image'] = $new_file_name;
 					
 					// SAVE POSTED DATA
-					$data = Mage::app()->getRequest()->getPost();
+					$data['image'] = $new_file_name . $_FILES['image']['name'][$i];
 					
-					$itemModel = Mage::getModel('restaurant/item');
+					echo "<pre>";
+					print_r($data);
+					
+					$categoryModel = Mage::getModel('restaurant/category');
 					if(!empty($data)) {
-						$itemModel->setRestaurantMenuId($restaurantmenu_id)
-							->setName($data['item_name'][$i])
+						$categoryModel
+							->setName($data['name'][$i])
+							->setMenuIds("1,2,3")
+							->setItemIds("2,3,4")
+							->setCategorysetId($categoryset_id)
 							->setImage($uplaoedFilename)
-							->setPrice($data['item_price'][$i])
-							->setCategory($data['category'][$i])
 							->save();
-						$itemModel->unsetData();
+						$categoryModel->unsetData();
 					}
 					Mage::getSingleton('core/session')->addSuccess('Successfully saved');
 					Mage::getSingleton('core/session')->settestData(false);
@@ -223,13 +242,13 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 	
 	public function deleteAction() {
 		$id = $this->getRequest()->getParam('id');
-		$model = Mage::getModel('restaurant/item');
+		$model = Mage::getModel('restaurant/categoryset');
 		
 		try {
 			$model->setId($id)->delete();
 			//echo "Data deleted successfully.";
 			Mage::getSingleton('core/session')->addSuccess('Data deleted successfully.');
-		} catch (Exception $e){
+		} catch (Exception $e) {
 			//echo $e->getMessage(); 
 			Mage::getSingleton('core/session')->addSuccess($e->getMessage());
 		}

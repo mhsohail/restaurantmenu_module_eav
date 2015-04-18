@@ -104,6 +104,15 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
                         'position' => 10,
                         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                     ),
+					'image' => array(
+                        'type' => 'varchar',
+                        'label' => 'Image',
+                        'input' => 'text',
+                        'required' => true,
+                        'sort_order' => 10,
+                        'position' => 10,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
 					'menu_ids' => array(
                         'type' => 'varchar',
                         'label' => 'Menu Ids',
@@ -116,6 +125,15 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
 					'item_ids' => array(
                         'type' => 'varchar',
                         'label' => 'Item Ids',
+                        'input' => 'text',
+                        'required' => true,
+                        'sort_order' => 10,
+                        'position' => 10,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
+					'categoryset_id' => array(
+                        'type' => 'int',
+                        'label' => 'Category Set Id',
                         'input' => 'text',
                         'required' => true,
                         'sort_order' => 10,
@@ -156,6 +174,40 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
                         'position' => 10,
                         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                     ),                    
+                    'is_active' => array(
+                        'type' => 'int',
+                        'label' => 'Is Active',
+                        'input' => 'text',
+                        'required' => false,                        
+                        'sort_order' => 50,
+                        'position' => 50,
+                        'required' => false,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
+                )
+            ),
+			Livetameion_Restaurant_Model_Categoryset::ENTITY => array(
+				'entity_model' => 'restaurant/categoryset',
+                'table' => 'restaurant/categoryset', /* Maps to the config.xml > global > models > restaurant_resource > entities > item */
+                'attributes' => array(
+                    'name' => array(
+                        'type' => 'varchar',
+                        'label' => 'Name',
+                        'input' => 'text',
+                        'required' => true,
+                        'sort_order' => 10,
+                        'position' => 10,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
+					'merchant_id' => array(
+                        'type' => 'int',
+                        'label' => 'Merchant Id',
+                        'input' => 'hidden',
+                        'required' => true,
+                        'sort_order' => 10,
+                        'position' => 10,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
                     'is_active' => array(
                         'type' => 'int',
                         'label' => 'Is Active',

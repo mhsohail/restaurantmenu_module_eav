@@ -1,24 +1,18 @@
 <?php
 class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_Action {
-
-/**
-     *    Create session 
-     * */
-    protected function _getSession() {
-        return Mage::getSingleton('restaurant/session');
-    }
-
-/**
-     *    validate Customer Login and redirect previous page 
-     * */
-    protected function _validateCustomerLogin() {
-        $session = Mage::getSingleton('customer/session');
-        if (!$session->isLoggedIn()) {
+	
+	protected function _getSession() {
+		return Mage::getSingleton('restaurant/session');
+	}
+	
+	protected function _validateCustomerLogin() {
+		$session = Mage::getSingleton('customer/session');
+		if (!$session->isLoggedIn()) {
             $session->setAfterAuthUrl(Mage::helper('core/url')->getCurrentUrl());
             $session->setBeforeAuthUrl(Mage::helper('core/url')->getCurrentUrl());
             $this->_redirect('customer/account/login/');
             return $this;
-        }elseif(!Mage::helper('restaurant')->isMarketplaceActiveSellar()){
+        } elseif(!Mage::helper('restaurant')->isMarketplaceActiveSellar()){
             $this->_redirect('customer/account/');
         }
     }
