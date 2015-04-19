@@ -1283,12 +1283,13 @@ if(isset($menu_id) && !empty($menu_id)) {
 							<table width="100%">
 								<tr>
 									<td valign="middle" width="25%">
-										<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'APPETIZERS & TAPAS')) ?>">
-											<img src="http://localhost/clikaroo/media/restaurant_menu/<?php echo $this->__($category->getImage()); ?>" width="70" height="70" align="absmiddle" />
+										<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('vid' => $this->getRequest()->getParam('vid'), 'mid' => $this->getRequest()->getParam('mid'), 'cid'=>$category->getEntityId())); ?>">
+											<img src="http://localhost/clikaroo/media/restaurant_menu/<?php echo $category->getImage(); ?>" width="70" height="70" align="absmiddle" />
 										</a>
 									</td>
+									<span>&nbsp;&nbsp;&nbsp;</span>
 									<td valign="middle" width="75%" style="line-height:15px;">
-										<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'cid'=>$category->getEntityId())) ?>"><?php echo $this->__($category->getName()); ?></a>
+										<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('vid' => $this->getRequest()->getParam('vid'), 'mid' => $this->getRequest()->getParam('mid'), 'cid'=>$category->getEntityId())); ?>"><?php echo $category->getName(); ?></a>
 									</td>
 								</tr>
 							</table>
@@ -1313,44 +1314,57 @@ if(isset($menu_id) && !empty($menu_id)) {
 						</tr>
 						
 						<?php
-						$cat_id = $this->getRequest()->getParam("catid");
+						$cat_id = $this->getRequest()->getParam("cid");
 						if(isset($cat_id) && !empty($cat_id)) {
 							$items = Mage::getModel("restaurant/item")->getCollection()
-								->addFieldToFilter("restaurantmenu_id", $this->getRequest()->getParam('id'))
-								->addFieldToFilter("category", $this->getRequest()->getParam('catid'));
+								->addAttributeToFilter("restaurant_menu_id", $this->getRequest()->getParam('mid'))
+								->addAttributeToFilter("category_ids", $this->getRequest()->getParam('cid'));
+							/*
+							;echo $cat_id . " - " . $menu_id;
+							echo "<pre>";
+							foreach($items as $item) {
+								$item = Mage::getModel("restaurant/item")->load($item->getEntityId());
+								//print_r($item->getData());
+								echo "Name: ".$item->getName();
+							}
+							exit;
+							*/
 							if($items->getSize() > 0) {
 								foreach($items as $item) {
+									$item = Mage::getModel("restaurant/item")->load($item->getEntityId());
 									?>
 									<tr class="odd">
-														<td  class="general_text menu_item" style="padding:3px; height:50px; width:100%;">
-															<div class="menu_item_name">
-																<a rel='example_group18003' href='item_images/3845/18003_1_default.jpg' title='Bruschetta & Grilled Garlic Crostini' onclick='return false' >
-																	<img style='position:relative;z-index:10;' src="http://livetameion.com/media/restaurant_menu/<?php echo $item->getImage(); ?>" width='80' height='80' border='0' alt='' align='left' />
-																</a>&nbsp;
-																<a href="javascript:void(0)" onClick='reset_level(); create_categoryid_on_add(3845); get_pro_details("18003", "3845","Bruschetta & Grilled Garlic Crostini", "left"); openthickbox("18003","Bruschetta & Grilled Garlic Crostini");'>
-																	<?php echo $item->getName(); ?>
-																</a>
-															</div>
-															<div>
-																<div class="menu_item_size" style="width:300px; word-wrap:break-word;">
-																	<span>(Tapa&nbsp;4.49)</span>&nbsp;&nbsp;&nbsp;<span>(Appetizer&nbsp;6.99)</span>&nbsp;&nbsp;&nbsp;		
-																</div>
-																<div style="padding-bottom:5px;"></div>
-																Fresh Tomato, Basil,Red Wine Vinaigrette, and Extra Virgin Olive Oil<br />
-															</div>
-														</td>
-														<td colspan="3" align="right" valign="top" style="padding-top:3px; vertical-align:middle; padding-right: 5px;" class="menu_item_add">
-															<input type="button" name="add_item" id="add_item" value="Add Item"
-															class="myButton" style="height:38px;"															onclick='reset_level(); 
-																create_categoryid_on_add(3845); 
-																get_pro_details("18003","3845","Bruschetta & Grilled Garlic Crostini", "left"); 
-																openthickbox("18003","Bruschetta & Grilled Garlic Crostini");' />
-														</td>
-													</tr>
+										<td  class="general_text menu_item" style="padding:3px; height:50px; width:100%;">
+											<div class="menu_item_name">
+												<a rel='example_group18003' href='item_images/3845/18003_1_default.jpg' title='Bruschetta & Grilled Garlic Crostini' onclick='return false' >
+													<img style='position:relative;z-index:10;' src="http://localhost/clikaroo/media/restaurant_menu/<?php echo $item->getImage(); ?>" width='80' height='80' border='0' alt='' align='left' />
+												</a>&nbsp;
+												<a href="javascript:void(0)" onClick='reset_level(); create_categoryid_on_add(3845); get_pro_details("18003", "3845","Bruschetta & Grilled Garlic Crostini", "left"); openthickbox("18003","Bruschetta & Grilled Garlic Crostini");'>
+													<?php echo $item->getName(); ?>
+												</a>
+											</div>
+											<div>
+												<div class="menu_item_size" style="width:300px; word-wrap:break-word;">
+													<span>(Tapa&nbsp;4.49)</span>&nbsp;&nbsp;&nbsp;<span>(Appetizer&nbsp;6.99)</span>&nbsp;&nbsp;&nbsp;		
+												</div>
+												<div style="padding-bottom:5px;"></div>
+												Fresh Tomato, Basil,Red Wine Vinaigrette, and Extra Virgin Olive Oil<br />
+											</div>
+										</td>
+										<td colspan="3" align="right" valign="top" style="padding-top:3px; vertical-align:middle; padding-right: 5px;" class="menu_item_add">
+											<input type="button" name="add_item" id="add_item" value="Add Item"
+											class="myButton" style="height:38px;"															onclick='reset_level(); 
+												create_categoryid_on_add(3845); 
+												get_pro_details("18003","3845","Bruschetta & Grilled Garlic Crostini", "left"); 
+												openthickbox("18003","Bruschetta & Grilled Garlic Crostini");' />
+										</td>
+									</tr>
 									<?php
 								} 
 							} else {
-								$this->__("No item available");
+								?>
+								<tr class="odd"><?php echo $this->__("No item available"); ?></tr>
+								<?php
 							}
 						} else {
 							?>

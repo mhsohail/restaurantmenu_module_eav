@@ -7,7 +7,7 @@
 class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data {
 	
 	const MARKETPLACE_ENABLE = "marketplace/marketplace/enable";
-const MARKETPLACE_STATUS_APPROVED = "marketplace/status/approved";
+	const MARKETPLACE_STATUS_APPROVED = "marketplace/status/approved";
 
 	public function isMarketplaceEnabled() {
 		//return (bool) Mage::getStoreConfig(self::MARKETPLACE_ENABLE, Mage::app()->getStore());
@@ -27,7 +27,25 @@ const MARKETPLACE_STATUS_APPROVED = "marketplace/status/approved";
 		return false;
 		}*/
 	}
-
+	
+	public function getActiveCategories() {
+		$customer_id = Mage::getSingleton('customer/session')->getId();
+		$categorysets = Mage::getModel('restaurant/categoryset')
+			->getCollection()
+			->addAttributeToFilter("is_active", 1)
+			->addAttributeToFilter("merchant_id", $customer_id);
+		foreach($categorysets as $categoryset) {
+			$categoryset = Mage::getModel('restaurant/categoryset')->load($categoryset->getEntityId());
+			$active_categoryset_id = $categoryset->getEntityId();
+		}
+		
+		$categories = Mage::getModel('restaurant/category')
+			->getCollection()
+			->addAttributeToFilter("merchant_id", $customer_id)
+			->addAttributeToFilter("categoryset_id", $active_categoryset_id);
+			
+		return $categories;
+	}
 
 		public function getAllstoreColletion()
 		{

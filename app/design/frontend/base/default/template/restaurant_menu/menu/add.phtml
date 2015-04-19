@@ -45,20 +45,7 @@
 						<div class="input-box">
 							<select name='category[]' class='input-text required-entry'>
 								<?php
-								$customer_id = Mage::getSingleton('customer/session')->getId();
-								$categorysets = Mage::getModel('restaurant/categoryset')
-									->getCollection()
-									->addAttributeToFilter("is_active", 1)
-									->addAttributeToFilter("merchant_id", $customer_id);
-								foreach($categorysets as $categoryset) {
-									$categoryset = Mage::getModel('restaurant/categoryset')->load($categoryset->getEntityId());
-									$active_categoryset_id = $categoryset->getEntityId();
-								}
-								
-								$categories = Mage::getModel('restaurant/category')
-									->getCollection()
-									->addAttributeToFilter("merchant_id", $customer_id)
-									->addAttributeToFilter("categoryset_id", $active_categoryset_id);
+								$categories = Mage::helper("restaurant")->getActiveCategories();
 								foreach($categories as $category) {
 									$category = Mage::getModel('restaurant/category')->load($category->getEntityId());
 									?>

@@ -35,16 +35,15 @@ $item = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('i
 						<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
 						<div class="input-box">
 							<select name='category' class='input-text required-entry'>
-								<option>APPETIZERS & TAPAS</option>
-								<option>WOOD-FIRE SIGNATURES</option>
-								<option>SOUPS</option>
-								<option>PIZZA</option>
-								<option>SANDWICHES</option>
-								<option>PASTA</option>
-								<option>SEAFOOD</option>
-								<option>SIDES</option>
-								<option>DESSERTS</option>
-								<option>BEVERAGES</option>
+								<?php
+								$categories = Mage::helper("restaurant")->getActiveCategories();
+								foreach($categories as $category) {
+									$category = Mage::getModel('restaurant/category')->load($category->getEntityId());
+									?>
+									<option value='<?php echo $this->__($category->getEntityId()) ?>'><?php echo $this->__($category->getName()) ?></option>
+									<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>			

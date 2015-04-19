@@ -158,7 +158,7 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 							->setName($data['item_name'][$i])
 							->setImage($uplaoedFilename)
 							->setPrice($data['item_price'][$i])
-							->setCategory($data['category'][$i])
+							->setCategoryIds($data['category'][$i])
 							->save();
 						$itemModel->unsetData();
 					}
@@ -204,7 +204,7 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 				$data = array(
 					'name' => $post['item_name'],
 					'price' => $post['item_price'],
-					'category' => $post['category'],
+					'category_ids' => $post['category'],
 					'image' => $post['item_image'],
 				);
 				
