@@ -62,7 +62,11 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 					<td><?php echo $_obj->getName() ?></td>
 					<td><span class="nobr"><img src="<?php echo $path.$_obj->getImage(); ?>" width="120"></span></td>
 					<td><?php echo $_obj->getPrice() ?></td>
-					<td><?php echo $_obj->getCategory() ?></td>
+					<?php
+						$category_id = $_obj->getCategoryIds();
+						$category = Mage::getModel("restaurant/category")->load($category_id);
+					?>
+					<td><?php echo $category->getName(); ?></td>
 					<td><?php echo $this->formatDate($_obj->getCreatedTime()) ?></td>
 					<td>
 						<a href="<?php echo $this->getUrl('restaurant/item/delete', array('id' => $_obj->getEntityId())) ?>"><?php echo $this->__('Delete') ?></a>

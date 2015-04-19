@@ -199,7 +199,7 @@ class Livetameion_Restaurant_CategoryController extends Mage_Core_Controller_Fro
 				
 				$data = array(
 					'name' => $post['name'],
-					//'image' => $post['image'],
+					'image' => $post['image'],
 				);
 				
 				$model = Mage::getModel('restaurant/category')->load($this->getRequest()->getParam('category_id'))->addData($data);

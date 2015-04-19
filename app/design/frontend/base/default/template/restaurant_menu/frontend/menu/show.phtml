@@ -22,7 +22,8 @@
 <?php
 
 //echo "<pre>";
-$menu_id = $this->getRequest()->getParam("id");
+$vendor_id = $this->getRequest()->getParam("vid");
+$menu_id = $this->getRequest()->getParam("mid");
 if(isset($menu_id) && !empty($menu_id)) {
 	/*
 	$items = Mage::helper('restaurant')->getMenuItemsFor($menu_id);
@@ -1242,210 +1243,66 @@ if(isset($menu_id) && !empty($menu_id)) {
 
 	}
 	</style>
-			  
-			  <table width="230" border="0" align="center" cellpadding="0" cellspacing="0" id="menu">
-		  
-			  <tr>
-				<td align="left" height="21" class="cu_side_heading border_bottom3">
-					&nbsp;			
-					View our Menu            		
-				  
-						  </td>
-			  </tr>
-		   
-			  <tr>
-				<td align="center">
-					<div id="menugrouptd">    
-					<table id="sublinksmenu" width="100%" border="0" cellspacing="0" cellpadding="2">
-									<tr class="menu_category" >
-							<td align="left" class="border_bottom3 submenu_layer_mask menu_nagivation_header" rel="0">
-								<span class="expanded" style="display:inline-block; width:16px; height:16px; line-height:16px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								<strong>
-									<span class="txt_orange2"><font size="3px">MAIN MENU</font></span>
-								</strong>
-							</td>
-						</tr>
-						 
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'APPETIZERS & TAPAS')) ?>">
-															<img src="https://www.onlineorderingdemo.com/category_images/3845.png" width="70" height="70" align="absmiddle" />
-														</a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'APPETIZERS & TAPAS')) ?>">APPETIZERS & TAPAS</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'WOOD-FIRE SIGNATURES')) ?>">
-															<img src="https://www.onlineorderingdemo.com/category_images/3846.png" width="70" height="70" align="absmiddle" />
-														</a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'WOOD-FIRE SIGNATURES')) ?>">WOOD-FIRE SIGNATURES</a></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SOUPS')) ?>">
-														<img src="https://www.onlineorderingdemo.com/category_images/3843.png" width="70" height="70" align="absmiddle" /></a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SOUPS')) ?>">SOUPS</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									  
-														   
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'PIZZA')) ?>">
-														<img src="https://www.onlineorderingdemo.com/category_images/3852.png" width="70" height="70" align="absmiddle" /></a>
-													</td>
-												
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'PIZZA')) ?>">PIZZA</a></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SANDWICHES')) ?>">
-														<img src="https://www.onlineorderingdemo.com/category_images/3849.png" width="70" height="70" align="absmiddle" /></a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SANDWICHES')) ?>">SANDWICHES</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'PASTA')) ?>">
-															<img src="https://www.onlineorderingdemo.com/category_images/3848.png" width="70" height="70" align="absmiddle" />
-														</a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'PASTA')) ?>">PASTA</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-														   
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SEAFOOD')) ?>">
-															<img src="https://www.onlineorderingdemo.com/category_images/3847.png" width="70" height="70" align="absmiddle" />
-														</a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SEAFOOD')) ?>">SEAFOOD</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-														   
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SIDES')) ?>">
-															<img src="https://www.onlineorderingdemo.com/category_images/3851.png" width="70" height="70" align="absmiddle" />
-														</a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'SIDES')) ?>">SIDES</a>                                                </td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'DESSERTS')) ?>">
-														<img src="https://www.onlineorderingdemo.com/category_images/3853.png" width="70" height="70" align="absmiddle" /></a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'DESSERTS')) ?>">DESSERTS</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td align="left" class="border_bottom3 menu_nagivation_rows">
-											<table width="100%">
-												<tr>
-													<td valign="middle" width="25%">
-														<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'BEVERAGES')) ?>">
-															<img src="https://www.onlineorderingdemo.com/category_images/3854.png" width="70" height="70" align="absmiddle" />
-														</a>
-													</td>
-													
-													<td valign="middle" width="75%" style="line-height:15px;">
-														<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'BEVERAGES')) ?>">BEVERAGES</a>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									  
-						</table>
-					</div>
-				  </td>
-			  </tr>
-			  
+
+<table width="230" border="0" align="center" cellpadding="0" cellspacing="0" id="menu">
+	<tr>
+		<td align="left" height="21" class="cu_side_heading border_bottom3">View our Menu</td>
+	</tr>
+	<tr>
+	<td align="center">
+		<div id="menugrouptd">    
+			<table id="sublinksmenu" width="100%" border="0" cellspacing="0" cellpadding="2">
+				<tr class="menu_category" >
+					<td align="left" class="border_bottom3 submenu_layer_mask menu_nagivation_header" rel="0">
+						<span class="expanded" style="display:inline-block; width:16px; height:16px; line-height:16px;"></span>
+						<strong>
+							<span class="txt_orange2"><font size="3px">MAIN MENU</font></span>
+						</strong>
+					</td>
+				</tr>
+				<?php
+				$categorysets = Mage::getModel('restaurant/categoryset')
+					->getCollection()
+					->addAttributeToFilter("is_active", 1)
+					->addAttributeToFilter("merchant_id", $vendor_id);
+				foreach($categorysets as $categoryset) {
+					$categoryset = Mage::getModel('restaurant/categoryset')->load($categoryset->getEntityId());
+					$active_categoryset_id = $categoryset->getEntityId();
+				}
+				
+				$categories = Mage::getModel("restaurant/category")
+					->getCollection()
+					->addAttributeToFilter("merchant_id", $vendor_id)
+					->addAttributeToFilter("categoryset_id", $active_categoryset_id);
+				
+				foreach($categories as $category) {
+					$category = Mage::getModel("restaurant/category")->load($category->getEntityId());
+					?>
+					<tr>
+						<td align="left" class="border_bottom3 menu_nagivation_rows">
+							<table width="100%">
+								<tr>
+									<td valign="middle" width="25%">
+										<a href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'catid'=>'APPETIZERS & TAPAS')) ?>">
+											<img src="http://localhost/clikaroo/media/restaurant_menu/<?php echo $this->__($category->getImage()); ?>" width="70" height="70" align="absmiddle" />
+										</a>
+									</td>
+									<td valign="middle" width="75%" style="line-height:15px;">
+										<a style="font-size:1em;" href="<?php echo $this->getUrl('restaurant/cmenu/show', array('id' => $this->getRequest()->getParam('id'), 'cid'=>$category->getEntityId())) ?>"><?php echo $this->__($category->getName()); ?></a>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<?php
+				}
+				?>
+				
 			</table>
+		</div>
+	</td>
+	</tr>
+</table>
 								</td>
 							 <td align="center" valign="top">  
 					<table width="95%" border="0"  cellspacing="0" cellpadding="0">
