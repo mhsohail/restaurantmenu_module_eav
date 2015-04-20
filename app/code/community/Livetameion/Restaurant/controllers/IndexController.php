@@ -182,6 +182,7 @@ class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_
 					if(!empty($data)) {
 						$itemModel->setRestaurantMenuId($restaurantmenu_id)
 							->setName($data['item_name'][$i])
+							->setDescription($data['description'][$i])
 							->setImage($uplaoedFilename)
 							->setPrice($data['item_price'][$i])
 							->setCategoryIds($data['category'][$i])

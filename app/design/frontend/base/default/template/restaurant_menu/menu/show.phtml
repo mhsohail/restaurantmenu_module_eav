@@ -45,6 +45,7 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 				<th><?php echo $this->__('ID #') ?></th>
 				<th><?php echo $this->__('Name') ?></th>
 				<th><?php echo $this->__('Image') ?></th>
+				<th><?php echo $this->__('Description') ?></th>
 				<th><?php echo $this->__('Price') ?></th>
 				<th><?php echo $this->__('Category') ?></th>
 				<th><span class="nobr"><?php echo $this->__('Created') ?></span></th>
@@ -61,6 +62,7 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 					<td><?php echo $_obj->getEntityId() ?></td>
 					<td><?php echo $_obj->getName() ?></td>
 					<td><span class="nobr"><img src="<?php echo $path.$_obj->getImage(); ?>" width="120"></span></td>
+					<td><?php echo $_obj->getDescription() ?></td>
 					<td><?php echo $_obj->getPrice() ?></td>
 					<?php
 						$category_id = $_obj->getCategoryIds();

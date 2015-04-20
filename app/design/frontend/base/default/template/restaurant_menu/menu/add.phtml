@@ -32,6 +32,15 @@
 				
 				<li>
 					<div class="field">
+						<label for="stores" class="required"><em>*</em><?php echo $this->__('Item Name') ?></label>
+						<div class="input-box">
+							<textarea name='description[]' class='input-text required-entry'></textarea>
+						</div>
+					</div>
+				</li>
+				
+				<li>
+					<div class="field">
 						<label for="stores" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
 						<div class="input-box">
 							<input type='text' name='item_price[]' class='input-text required-entry' />

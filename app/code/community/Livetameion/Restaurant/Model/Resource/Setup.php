@@ -19,7 +19,16 @@ class Livetameion_Restaurant_Model_Resource_Setup extends Mage_Eav_Model_Entity_
                         'sort_order' => 10,
                         'position' => 10,
                         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-                    ),                     
+                    ),
+					'description' => array(
+                        'type' => 'text',
+                        'label' => 'Description',
+                        'input' => 'text',
+                        'required' => false,
+                        'sort_order' => 10,
+                        'position' => 10,
+                        'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+                    ),
                     'price' => array(
                         'type' => 'int',
                         'label' => 'Price',

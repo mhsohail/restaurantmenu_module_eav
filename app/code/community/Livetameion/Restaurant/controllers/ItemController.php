@@ -156,6 +156,7 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 					if(!empty($data)) {
 						$itemModel->setRestaurantMenuId($restaurantmenu_id)
 							->setName($data['item_name'][$i])
+							->setDescription($data['description'][$i])
 							->setImage($uplaoedFilename)
 							->setPrice($data['item_price'][$i])
 							->setCategoryIds($data['category'][$i])
@@ -203,6 +204,7 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 				
 				$data = array(
 					'name' => $post['item_name'],
+					'description' => $post['description'],
 					'price' => $post['item_price'],
 					'category_ids' => $post['category'],
 					'image' => $post['item_image'],
