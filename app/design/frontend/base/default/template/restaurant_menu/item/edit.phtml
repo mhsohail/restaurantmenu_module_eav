@@ -2,13 +2,12 @@
 	<h1><?php echo $this->__('Menu Item - Edit') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<?php
-$item = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('id'));
-?>
 <form action="<?php echo $this->getUrl('*/item/update') ?>" method="post" id="form-validate-restaurant" enctype="multipart/form-data">
 	<div class="fieldset">
 		<?php echo $this->getBlockHtml('formkey') ?>
 		<h2 class="legend"><?php echo $this->__('Menu Item Information') ?></h2>
+		<?php echo $this->getChildHtml("fieldset"); ?>
+		<?php /* ?>
 		<input type='hidden' name='item_id' value='<?php echo $this->getRequest()->getParam('id'); ?>' />
 		<ul class="form-list" id='menu_item_form_fields'>
 			<div class='menu_item'>
@@ -71,7 +70,7 @@ $item = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('i
 				</a>
 			</p>
 			<button type="submit" title="<?php echo $this->__('Update') ?>" class="button"><span><span><?php echo $this->__('Update') ?></span></span></button>
-		</div>
+		</div><?php */ ?>
 	</div>
 </form>
 

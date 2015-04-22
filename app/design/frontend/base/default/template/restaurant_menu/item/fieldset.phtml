@@ -1,0 +1,289 @@
+<style>
+.menu_item {
+	border:1px solid grey;
+	padding:5px;
+	margin-bottom:5px;
+}
+
+.delete_menu_item {
+	float:right;
+	cursor:pointer;
+}
+</style>
+<?php
+$actionName = Mage::app()->getRequest()->getActionName();
+$id = Mage::app()->getRequest()->getParam("id");
+$edit_mode = (($actionName == "edit") && isset($id) && !empty($id));
+global $item;
+if( $edit_mode ) {
+	$item = Mage::getModel('restaurant/item')->load($id);
+	$name = $item->getName();
+	$description = $item->getDescription();
+	$size = $item->getSize();
+	$categoryy = $item->getCategoryIds();
+	//$name = $item->getName();
+}
+?>
+<ul class="form-list" id='menu_item_form_fields'>
+	<div class='menu_item'>
+		<span class='delete_menu_item' onClick="delete_menu_item(this)">X</span>
+		<li>
+			<div class="field">
+				<label for="stores" class="required"><em>*</em><?php echo $this->__('Item Name') ?></label>
+				<div class="input-box">
+					<input type='text' name='item_name[]' class='input-text required-entry' value="<?php echo $name; ?>" />
+				</div>
+			</div>
+		</li>
+			
+		<li>
+			<div class="field">
+				<label for="stores" class="required"><em>*</em><?php echo $this->__('Description') ?></label>
+				<div class="input-box">
+					<textarea name='description[]' class='input-text required-entry'><?php echo $description; ?></textarea>
+				</div>
+			</div>
+		</li>
+		
+		<li>
+			<div class="field">
+				<label for="stores" class="required"><em>*</em><?php echo $this->__('') ?></label>
+				<div class="radio">
+					<input type='radio' name='size[]' class='radio required-entry' value='<?php echo Livetameion_Restaurant_Model_Item::SINGLE_SIZE; ?>' <?php echo ($size == Livetameion_Restaurant_Model_Item::SINGLE_SIZE) ? 'checked':'' ?> onclick="add_size_fields(this, 1)" />Single Size
+				</div>
+			</div>
+		</li>
+		<div id='single_size_fields'><?php if( $edit_mode && $size == Livetameion_Restaurant_Model_Item::SINGLE_SIZE ) { echo getSingleSizeFields(); } ?></div>
+		<li>
+			<div class="field">
+				<label for="stores" class="required"><em>*</em><?php echo $this->__('') ?></label>
+				<div class="radio">
+					<input type='radio' name='size[]' class='radio required-entry' value='<?php echo Livetameion_Restaurant_Model_Item::MULTIPLE_SIZE; ?>' <?php echo ($size == Livetameion_Restaurant_Model_Item::MULTIPLE_SIZE) ? 'checked':'' ?> onclick="add_size_fields(this, 0)" />Multiple Sizes
+				</div>
+			</div>
+		</li>
+		<div id='multiple_size_fields'><?php if( $edit_mode && $size == Livetameion_Restaurant_Model_Item::MULTIPLE_SIZE ) { echo getMultipleSizeFields(); } ?></div>
+		
+		<li>
+			<div class="field">
+				<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
+				<div class="input-box">
+					<select name='category[]' class='input-text required-entry'>
+						<?php
+						$categories = Mage::helper("restaurant")->getActiveCategories();
+						foreach($categories as $category) {
+							$category = Mage::getModel('restaurant/category')->load($category->getEntityId());
+							if( edit_mode && ($category->getEntityId() == $categoryy) ) {
+								$selected = "selected";
+							} else {
+								$selected = "";
+							}
+							?>
+							<option value='<?php echo $this->__($category->getEntityId()) ?>' <?php echo $selected; ?> ><?php echo $this->__($category->getName()) ?></option>
+							<?php
+						}
+						?>
+					</select>
+				</div>
+			</div>			
+		</li>
+		
+		<li>
+			<div class="field">
+				<div class="upload-head">
+					<label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
+				</div>
+				<div class="input-box">
+					<input type="file" id="item_image" name='item_image[]' title="<?php echo $this->__('Image') ?>" class="input-text required-entry" />
+				</div>
+			</div>
+		</li>
+	</div>
+</ul>
+
+<?php $actionName = Mage::app()->getRequest()->getActionName() ?>
+<?php if( $actionName == "add" ) { ?>
+	<div class="buttons-set">
+		<p class="back-link">
+			<a href="javascript:void(0)" id='add_new_item' onclick='add_item_fields()'>
+				<?php echo $this->__('Add New Item') ?>
+			</a>
+		</p>
+	</div>
+<?php } ?>
+<div class="buttons-set">
+	<p class="required"><?php echo $this->__('* Required Fields') ?></p>
+	<p class="back-link">
+		<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" >
+			<small>&laquo; </small>
+			<?php echo $this->__('Back') ?>
+		</a>
+	</p>
+	<button type="submit" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+</div>
+
+<?php
+
+function getSingleSizeFields() {
+	global $item;
+	$single_size_fields = "<li>" .
+	"<div class=\"field\">" .
+		"<label for=\"stores\" class=\"required\"><em>*</em>Price</label>" .
+		"<div class=\"input-box\">" .
+			"<input type=\"text\" name=\"single_size_price[]\" class=\"input-text required-entry\" value=\"" .  $item->getSingleSizePrice() . "\" />" .
+		"</div>" .
+	"</div>" .
+"</li>";
+	return $single_size_fields;
+}
+
+function getMultipleSizeFields() {
+	global $item;
+	$multiple_size_fields = "<li>" .
+		"<div class=\"field\">" .
+			"<label for=\"stores\" class=\"required\"><em>*</em>Small Size Price</label>" .
+			"<div class=\"input-box\">" .
+				"<input type=\"text\" name=\"small_size_price[]\" class=\"input-text required-entry\" value=\"" .  $item->getSmallSizePrice() . "\" />" .
+			"</div>" .
+		"</div>" .
+		"<div class=\"field\">" .
+			"<label for=\"stores\" class=\"required\"><em>*</em>Medium Size Price</label>" .
+			"<div class=\"input-box\">" .
+				"<input type=\"text\" name=\"medium_size_price[]\" class=\"input-text required-entry\" value=\"" .  $item->getMediumSizePrice() . "\" />" .
+			"</div>" .
+		"</div>" .
+		"<div class=\"field\">" .
+			"<label for=\"stores\" class=\"required\"><em>*</em>Large Size Price</label>" .
+			"<div class=\"input-box\">" .
+				"<input type=\"text\" name=\"large_size_price[]\" class=\"input-text required-entry\" value=\"" .  $item->getLargeSizePrice() . "\" />" .
+			"</div>" .
+		"</div>" .
+		"<div class=\"field\">" .
+			"<label for=\"stores\" class=\"required\"><em>*</em>Half Order Price</label>" .
+			"<div class=\"input-box\">" .
+				"<input type=\"text\" name=\"half_order_price[]\" class=\"input-text required-entry\" value=\"" . $item->getHalfOrderPrice() . "\" />" .
+			"</div>" .
+		"</div>" .
+		"<div class=\"field\">" .
+			"<label for=\"stores\" class=\"required\"><em>*</em>Full Order Price</label>" .
+			"<div class=\"input-box\">" .
+				"<input type=\"text\" name=\"full_order_price[]\" class=\"input-text required-entry\" value=\"" . $item->getFullOrderPrice() . "\" />" .
+			"</div>" .
+		"</div>" .
+		"<div class=\"field\">" .
+			"<label for=\"stores\" class=\"required\"><em>*</em>Child Size Price</label>" .
+			"<div class=\"input-box\">" .
+				"<input type=\"text\" name=\"child_order_price[]\" class=\"input-text required-entry\" value=\"" . $item->getChildOrderPrice() . "\" />" .
+			"</div>" .
+		"</div>" .
+	"</li>";
+	return $multiple_size_fields;
+}
+?>
+<input type='hidden' id='single_size_fields_hidden' value='<?php echo getSingleSizeFields(); ?>' />
+<input type='hidden' id='multiple_size_fields_hidden' value='<?php echo getMultipleSizeFields(); ?>' />
+
+<script type="text/javascript">
+//<![CDATA[
+var productForm = new VarienForm('form-validate-restaurant', true);
+//]]>
+function callController(sid) {
+	new Ajax.Request("<?php echo $this->getUrl('restaurant/index/gettoreategory') ?>", {
+		method: 'Post',
+		parameters: {'store_id':sid},
+		onComplete: function(transport) {
+			document.getElementById('category_html').innerHTML=transport.responseText;
+			alert(transport.responseText);
+			//alert(sid);
+		}
+	});
+}
+
+function add_item_fields() {
+	var new_item_html ="<span class='delete_menu_item' onClick=\"delete_menu_item(this)\">X</span>" +
+		"<li>" +
+			"<div class=\"field\">" +
+				"<label for=\"stores\" class=\"required\"><em>*</em>Item Name</label>" +
+				"<div class=\"input-box\">" +
+					"<input type='text' name='item_name[]' class='input-text required-entry' />" +
+				"</div>" +
+			"</div>" +
+		"</li>" +
+		
+		"<li>" +
+			"<div class=\"field\">" +
+				"<label for=\"stores\" class=\"required\"><em>*</em>Price</label>" +
+				"<div class=\"input-box\">" +
+					"<input type='text' name='item_price[]' class='input-text required-entry' />" +
+				"</div>" +
+			"</div>" +
+		"</li>" +
+		
+		"<li>" +
+			"<div class=\"field\">" +
+				"<label for=\"category\" class=\"required\"><em>*</em>Category</label>" +
+				"<div class=\"input-box\">" +
+					"<select name='category[]' class='input-text required-entry'>" +
+						"<option>APPETIZERS & TAPAS</option>" +
+						"<option>WOOD-FIRE SIGNATURES</option>" +
+						"<option>SOUPS</option>" +
+						"<option>PIZZA</option>" +
+						"<option>SANDWICHES</option>" +
+						"<option>PASTA</option>" +
+						"<option>SEAFOOD</option>" +
+						"<option>SIDES</option>" +
+						"<option>DESSERTS</option>" +
+						"<option>BEVERAGES</option>" +
+					"</select>" +
+				"</div>" +
+			"</div>" +	
+		"</li>" +
+		
+		"<li>" +
+			"<div class=\"field\">" +
+				"<div class=\"upload-head\">" +
+					"<label for=\"image\" class=\"required\"></label>" +
+				"</div>" +
+				"<div class=\"input-box\">" +
+					"<input type=\"file\" id=\"item_image\" name=\"item_image[]\"  title=\"Image\" class=\"input-text required-entry\" />" +
+				"</div>" +
+			"</div>" +
+		"</li>";
+	
+	var div = document.createElement("div");
+	div.className = "menu_item";
+	div.innerHTML = new_item_html;
+	document.getElementById('menu_item_form_fields').appendChild(div);
+}
+
+function delete_menu_item(node) {
+	node.parentNode.remove();
+}
+
+function add_size_fields(_this, single_field) {
+	if(single_field) {
+		if(document.getElementById("multiple_size_fields").childNodes.length > 0) {
+			document.getElementById('multiple_size_fields').innerHTML = "";
+		}
+		//alert(document.getElementsByName("size[]")[0].value);
+		if (_this.checked && document.getElementById("single_size_fields").childNodes.length == 0) {
+			var div = document.createElement("div");
+			div.className = "size_item";
+			div.innerHTML = document.getElementById('single_size_fields_hidden').value;
+			document.getElementById('single_size_fields').appendChild(div);
+		}
+	} else {
+		if(document.getElementById("single_size_fields").childNodes.length > 0) {
+			document.getElementById('single_size_fields').innerHTML = "";
+		}
+		//alert(document.getElementsByName("size[]")[1].value);
+		if (_this.checked && document.getElementById("multiple_size_fields").childNodes.length == 0) {
+			var div = document.createElement("div");
+			div.className = "size_item";
+			div.innerHTML = document.getElementById('multiple_size_fields_hidden').value;
+			document.getElementById('multiple_size_fields').appendChild(div);
+		}
+	}
+	
+}
+</script>

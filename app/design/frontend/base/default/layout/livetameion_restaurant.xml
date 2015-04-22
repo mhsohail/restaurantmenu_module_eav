@@ -19,7 +19,7 @@
 			<template>page/1column.phtml</template>
 		</action>
 		<!-- The following <update> tag with handle attribute is used to show the template output in customer account page -->
-		<update handle="customer_account"/>
+		<!--<update handle="customer_account"/>-->
 		<reference name="head">
 			<action method="setTitle" translate="title" module="restaurant">
 				<title>Restaurant Menu</title>
@@ -64,7 +64,7 @@
 		<action method="setTemplate">
 			<template>page/1column.phtml</template>
 		</action>
-		<update handle="customer_account"/>
+		<!--<update handle="customer_account"/>-->
 		<reference name="head">
 			<action method="setTitle" translate="title" module="restaurant">
 				<title>Restaurant Menu</title>
@@ -84,7 +84,10 @@
         </reference>
 		<reference name="content">
 			<!-- <block type="restaurant/navbar" name="restaurant_nav" template="/restaurant/nav1.phtml"/> -->
-		<block type="restaurant/menu" name="restaurant_menu" template="restaurant_menu/menu/show.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/menu/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/menu/show.phtml" />
+			</block>
 			<!--    <block type="restaurant/collection" name="restaurant_collection" template="restaurant/collection.phtml"/>-->
         </reference>
 		<!--    <reference name="content">
@@ -118,9 +121,14 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/add" name="restaurant_add" template="restaurant_menu/menu/add.phtml"/>              
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/menu/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/menu/add.phtml">
+					<block type="restaurant/menu" name="fieldset" as="fieldset" template="restaurant_menu/item/fieldset.phtml" />
+				</block>
+			</block>
         </reference>
     </livetameion_restaurant_index_add>
 	
@@ -149,8 +157,8 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
-       <reference name="content">            
+        <!--<update handle="customer_account"/>-->
+		<reference name="content">            
         <block type="restaurant/edit" name="restaurant_edit" template="restaurant_menu/menu/edit.phtml"/>              
         </reference>
     </livetameion_restaurant_index_edit>
@@ -161,7 +169,7 @@
 		<action method="setTemplate">
 			<template>page/1column.phtml</template>
 		</action>
-		<update handle="customer_account"/>
+		<!--<update handle="customer_account"/>-->
 		<reference name="head">
 			<action method="setTitle" translate="title" module="restaurant">
 				<title>Menu Item</title>
@@ -181,7 +189,7 @@
         </reference>
 		<reference name="content">
 			<!-- <block type="restaurant/navbar" name="restaurant_nav" template="/restaurant/nav1.phtml"/> -->
-		<block type="restaurant/item" name="restaurant_item" template="restaurant_menu/menu/menu.phtml"/>
+			<block type="restaurant/item" name="restaurant_item" template="restaurant_menu/menu/menu.phtml"/>
 			<!--    <block type="restaurant/collection" name="restaurant_collection" template="restaurant/collection.phtml"/>-->
         </reference>
 		<!--    <reference name="content">
@@ -215,9 +223,16 @@
         <action method="setTemplate">
 			<template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/add" name="restaurant_add" template="restaurant_menu/item/add.phtml"/>
+			<reference name="content">
+				<block type="core/template" name="restaurant_menu" template="restaurant_menu/menu/coretemplate.phtml">
+					<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+					<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/item/add.phtml">
+						<block type="restaurant/menu" name="fieldset" as="fieldset" template="restaurant_menu/item/fieldset.phtml" />
+					</block>
+				</block>
+			</reference>
         </reference>
     </livetameion_restaurant_item_add>
 	
@@ -246,9 +261,14 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/item/edit.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/menu/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/item/edit.phtml">
+					<block type="restaurant/menu" name="fieldset" as="fieldset" template="restaurant_menu/item/fieldset.phtml" />
+				</block>
+			</block>
         </reference>
     </livetameion_restaurant_item_edit>
 	
@@ -258,7 +278,7 @@
 		<action method="setTemplate">
 			<template>page/1column.phtml</template>
 		</action>
-		<update handle="customer_account"/>
+		<!--<update handle="customer_account"/>-->
 		<reference name="head">
 			<action method="setTitle" translate="title" module="restaurant">
 				<title>Menu Item</title>
@@ -278,10 +298,10 @@
         </reference>
 		<reference name="content">
 			<!-- <block type="restaurant/navbar" name="restaurant_nav" template="/restaurant/nav1.phtml"/> -->
-		<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
-			<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
-			<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/categoryset/bodycontent.phtml" />
-		</block>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/categoryset/bodycontent.phtml" />
+			</block>
 			<!--    <block type="restaurant/collection" name="restaurant_collection" template="restaurant/collection.phtml"/>-->
         </reference>
 		<!--    <reference name="content">
@@ -317,7 +337,10 @@
         </action>   
         <update handle="customer_account"/>
 		<reference name="content">
-			<block type="restaurant/add" name="restaurant_add" template="restaurant_menu/categoryset/add.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/categoryset/add.phtml" />
+			</block>
         </reference>
     </livetameion_restaurant_categoryset_add>
 	
@@ -346,7 +369,7 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
 			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/item/edit.phtml"/>
         </reference>
@@ -376,9 +399,12 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/categoryset/show.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/categoryset/show.phtml" />
+			</block>
         </reference>
     </livetameion_restaurant_categoryset_show>
 	
@@ -388,7 +414,7 @@
 		<action method="setTemplate">
 			<template>page/1column.phtml</template>
 		</action>
-		<update handle="customer_account"/>
+		<!--<update handle="customer_account"/>-->
 		<reference name="head">
 			<action method="setTitle" translate="title" module="restaurant">
 				<title>Menu Item</title>
@@ -445,9 +471,12 @@
         <action method="setTemplate">
 			<template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/add" name="restaurant_add" template="restaurant_menu/category/add.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/category/add.phtml" />
+			</block>
         </reference>
     </livetameion_restaurant_category_add>
 	
@@ -476,9 +505,12 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/category/edit.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/category/add.phtml" />
+			</block>
         </reference>
     </livetameion_restaurant_category_edit>
 	
@@ -506,9 +538,12 @@
         <action method="setTemplate">
             <template>page/1column.phtml</template>
         </action>   
-        <update handle="customer_account"/>
+        <!--<update handle="customer_account"/>-->
 		<reference name="content">
-			<block type="restaurant/edit" name="item_edit" template="restaurant_menu/category/show.phtml"/>
+			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
+				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/category/show.phtml" />
+			</block>
         </reference>
     </livetameion_restaurant_category_show>
 	

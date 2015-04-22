@@ -46,24 +46,50 @@ class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data {
 			
 		return $categories;
 	}
-
-		public function getAllstoreColletion()
-		{
-			return Mage::app()->getStores();
+	
+	public function saveMenuItem($data) {
+		/*
+		echo "<pre>";
+		print_r($data);
+		exit;
+		*/
+		if(!empty($data)) {
+			$itemModel = Mage::getModel('restaurant/item');
+			$itemModel->setRestaurantMenuId($data['restaurantmenu_id'])
+				->setName($data['item_name'][0])
+				->setDescription($data['description'][0])
+				->setImage($data['item_image'])
+				->setSize($data['size'][0])
+				->setCategoryIds($data['category'][0]);
+			if($data['size'][0] == Livetameion_Restaurant_Model_Item::SINGLE_SIZE) {
+				$itemModel->setSingleSizePrice($data['single_size_price'][0]);
+			} else {
+				$itemModel->setSmallSizePrice($data['small_size_price'][0])
+					->setMediumSizePrice($data['medium_size_price'][0])
+					->setLargeSizePrice($data['large_size_price'][0])
+					->setHalfOrderPrice($data['half_order_price'][0])
+					->setFullOrderPrice($data['full_order_price'][0])
+					->setChildOrderPrice($data['child_order_price'][0]);
+			}
+			$itemModel->save();
+			$itemModel->unsetData();
 		}
-		public function getAllCategories()
-		{
-			$category=Mage::getModel('catalog/category')
+	}
+	
+	public function getAllstoreColletion() {
+		return Mage::app()->getStores();
+	}
+	
+	public function getAllCategories() {
+		$category=Mage::getModel('catalog/category')
 			->getCollection()
 			->setStoreId($store_id)
 			->setOrder('position', 'asc')
 			->addFieldToFilter('is_active', array('eq'=>'1'))
 			->addAttributeToSelect('*');
-			return $category;
-		}
-
-
-
+		return $category;
+	}
+	
 	public function getStoreData(){
 		$store_info=array();	
 		$allStores  = Mage::helper('restaurant')->getAllstoreColletion();

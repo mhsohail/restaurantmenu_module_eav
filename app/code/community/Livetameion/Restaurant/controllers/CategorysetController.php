@@ -162,9 +162,6 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 					// SAVE POSTED DATA
 					$data['image'] = $new_file_name . $_FILES['image']['name'][$i];
 					
-					echo "<pre>";
-					print_r($data);
-					
 					$categoryModel = Mage::getModel('restaurant/category');
 					if(!empty($data)) {
 						$categoryModel
@@ -188,7 +185,7 @@ class Livetameion_Restaurant_CategorysetController extends Mage_Core_Controller_
 				}
 			}
 		}
-		$this->_redirect("*/index/");
+		$this->_redirect("*/categoryset/");
 	}
 	
 	public function updateAction() {

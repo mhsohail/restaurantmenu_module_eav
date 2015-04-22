@@ -1,96 +1,13 @@
-<style>
-.menu_item {
-	border:1px solid grey;
-	padding:5px;
-	margin-bottom:5px;
-}
-
-.delete_menu_item {
-	float:right;
-	cursor:pointer;
-}
-</style>
 <div class="page-title">
-	<h1><?php echo $this->__('Restaurant Menu - Add') ?></h1>
+	<h1><?php echo $this->__('Menu Item - Add') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <form action="<?php echo $this->getUrl('*/item/save') ?>" method="post" id="form-validate-restaurant" enctype="multipart/form-data">
 	<div class="fieldset">
 		<?php echo $this->getBlockHtml('formkey') ?>
-		<input type='hidden' name='menu_id' value='<?php echo $this->getRequest()->getParam('menuid'); ?>' />
-		<h2 class="legend"><?php echo $this->__('Restaurant Menu Information') ?></h2>
-		<ul class="form-list" id='menu_item_form_fields'>
-			<div class='menu_item'>
-				<span class='delete_menu_item' onClick="delete_menu_item(this)">X</span>
-				<li>
-					<div class="field">
-						<label for="stores" class="required"><em>*</em><?php echo $this->__('Item Name') ?></label>
-						<div class="input-box">
-							<input type='text' name='item_name[]' class='input-text required-entry' />
-						</div>
-					</div>
-				</li>
-				
-				<li>
-					<div class="field">
-						<label for="stores" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
-						<div class="input-box">
-							<input type='text' name='item_price[]' class='input-text required-entry' />
-						</div>
-					</div>			
-				</li>
-				
-				<li>
-					<div class="field">
-						<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
-						<div class="input-box">
-							<select name='category[]' class='input-text required-entry'>
-								<option>APPETIZERS & TAPAS</option>
-								<option>WOOD-FIRE SIGNATURES</option>
-								<option>SOUPS</option>
-								<option>PIZZA</option>
-								<option>SANDWICHES</option>
-								<option>PASTA</option>
-								<option>SEAFOOD</option>
-								<option>SIDES</option>
-								<option>DESSERTS</option>
-								<option>BEVERAGES</option>
-							</select>
-						</div>
-					</div>			
-				</li>
-				
-				<li>
-					<div class="field">
-						<div class="upload-head">
-							<label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
-						</div>
-						<div class="input-box">
-							<input type="file" id="item_image" name='item_image[]' title="<?php echo $this->__('Image') ?>" class="input-text required-entry" />
-						</div>
-					</div>
-				</li>
-			</div>
-		</ul>
-		
-		<div class="buttons-set">
-			<p class="back-link">
-				<a href="javascript:void(0)" id='add_new_item' onclick='add_item_fields()'>
-					<?php echo $this->__('Add New Item') ?>
-				</a>
-			</p>
-		</div>
-		
-		<div class="buttons-set">
-			<p class="required"><?php echo $this->__('* Required Fields') ?></p>
-			<p class="back-link">
-				<a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" >
-					<small>&laquo; </small>
-					<?php echo $this->__('Back') ?>
-				</a>
-			</p>
-			<button type="submit" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
-		</div>
+		<h2 class="legend"><?php echo $this->__('Menu Item Information') ?></h2>
+		<?php echo $this->getChildHtml("fieldset"); ?>
+	</div>
 </form>
 
 <script type="text/javascript">

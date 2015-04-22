@@ -6,6 +6,8 @@
 
 class Livetameion_Restaurant_Model_Item extends Mage_Core_Model_Abstract {
 	const ENTITY = 'restaurant_item';
+	const SINGLE_SIZE = "single_size";
+	const MULTIPLE_SIZE = "multiple_size";
 	protected $_eventPrefix = 'restaurant';
 	protected $_eventObject = 'item';
 	

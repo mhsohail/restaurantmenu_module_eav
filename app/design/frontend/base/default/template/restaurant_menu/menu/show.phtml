@@ -63,7 +63,21 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 					<td><?php echo $_obj->getName() ?></td>
 					<td><span class="nobr"><img src="<?php echo $path.$_obj->getImage(); ?>" width="120"></span></td>
 					<td><?php echo $_obj->getDescription() ?></td>
-					<td><?php echo $_obj->getPrice() ?></td>
+					<td>
+					<?php
+					if($_obj->getSize() == Livetameion_Restaurant_Model_Item::SINGLE_SIZE) {
+						echo "Single Size: " . $_obj->getSingleSizePrice();
+					} else {
+						echo "Small Size: " . $_obj->getSmallSizePrice() . "<br />";
+						echo "Medium Size: " . $_obj->getMediumSizePrice() . "<br />";
+						echo "Large Size: " . $_obj->getLargeSizePrice() . "<br />";
+						echo "Half Size: " . $_obj->getHalfOrderPrice() . "<br />";
+						echo "Full Size: " . $_obj->getFullOrderPrice() . "<br />";
+						echo "Child Size: " . $_obj->getChildOrderPrice();
+					}
+					?>
+					
+					</td>
 					<?php
 						$category_id = $_obj->getCategoryIds();
 						$category = Mage::getModel("restaurant/category")->load($category_id);

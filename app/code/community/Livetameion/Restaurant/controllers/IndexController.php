@@ -144,7 +144,7 @@ class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_
 				->setMerchantId($customer_id)
 				->save();
 		}
-		$restaurantmenu_id = $menuModel->getEntityId();
+		$data['restaurantmenu_id'] = $menuModel->getEntityId();
 		$menuModel->unsetData();
 		
 		Mage::getSingleton('core/session')->addSuccess('Successfully saved');
@@ -178,17 +178,8 @@ class Livetameion_Restaurant_IndexController extends Mage_Core_Controller_Front_
 					//$data['item_image'] = $new_file_name;
 					
 					// SAVE POSTED DATA
-					$itemModel = Mage::getModel('restaurant/item');
-					if(!empty($data)) {
-						$itemModel->setRestaurantMenuId($restaurantmenu_id)
-							->setName($data['item_name'][$i])
-							->setDescription($data['description'][$i])
-							->setImage($uplaoedFilename)
-							->setPrice($data['item_price'][$i])
-							->setCategoryIds($data['category'][$i])
-							->save();
-						$itemModel->unsetData();
-					}
+					Mage::helper('restaurant')->saveMenuItem($data);
+					
 					Mage::getSingleton('core/session')->addSuccess('Successfully saved');
 					Mage::getSingleton('core/session')->settestData(false);
 					//print_r($data);
