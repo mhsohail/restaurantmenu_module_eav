@@ -180,51 +180,64 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 	public function updateAction() {
 		$this->_validateCustomerLogin();
 		$customer_id = Mage::getSingleton('customer/session')->getId(); // Get Current User id
+		$post = Mage::app()->getRequest()->getPost();
 		
-		if(isset($_FILES['item_image']['name']) and (file_exists($_FILES['item_image']['tmp_name']))) {
-			try {
-				$uploader = new Varien_File_Uploader('item_image');
-				//print_r($uploader);
-				$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
-				
-				$uploader->setAllowRenameFiles(false);
-				$new_file_name=time().$customer_id;
-				// setAllowRenameFiles(true) -> move your file in a folder the magento way
-				// setAllowRenameFiles(true) -> move your file directly in the $path folder
-				$uploader->setFilesDispersion(false);
-				
-				$path = Mage::getBaseDir('media') . DS."restaurant_menu/";
-				$uplaoedFilename=$new_file_name.$_FILES['item_image']['name'];
-				$uploader->save($path, $new_file_name.$_FILES['item_image']['name']);
-				//$uploader->save($path, $new_file_name);
-				
-				$post = Mage::app()->getRequest()->getPost();
-				$post['item_image'] = $new_file_name.$_FILES['item_image']['name'];
-				$all_categories=@implode(',', $post['category_ids']);
-				
-				$data = array(
-					'name' => $post['item_name'],
-					'description' => $post['description'],
-					'price' => $post['item_price'],
-					'category_ids' => $post['category'],
-					'image' => $post['item_image'],
-				);
-				
-				$model = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('item_id'))->addData($data);
-				$ad_id = $this->getRequest()->getParam('item_id');
-				
+		for($i = 0; $i < count($post['item_name']); $i++) {
+			if(isset($_FILES['item_image']['name']) and (file_exists($_FILES['item_image']['tmp_name'][$i]))) {
 				try {
-					$model->setId($ad_id)->save();
-					// in order to see the below message printed, remove $this->_redirect("*/*/") statement below.
-					//echo "Data updated successfully.";
-				} catch (Exception $e){
-					echo $e->getMessage(); 
+					$uploader = new Varien_File_Uploader(array(
+						'name' => $_FILES['item_image']['name'][$i],
+						'type' => $_FILES['item_image']['type'][$i],
+						'tmp_name' => $_FILES['item_image']['tmp_name'][$i],
+						'error' => $_FILES['item_image']['error'][$i],
+						'size' => $_FILES['item_image']['size'][$i]
+					));
+					
+					//print_r($uploader);
+					//$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
+					
+					$uploader->setAllowRenameFiles(false);
+					$new_file_name=time().$customer_id;
+					// setAllowRenameFiles(true) -> move your file in a folder the magento way
+					// setAllowRenameFiles(true) -> move your file directly in the $path folder
+					$uploader->setFilesDispersion(false);
+					
+					$path = Mage::getBaseDir('media') . DS."restaurant_menu/";
+					$uplaoedFilename = $new_file_name . $_FILES['item_image']['name'][$i];
+					$uploader->save($path, $new_file_name . $_FILES['item_image']['name'][$i]);
+					//$uploader->save($path, $new_file_name);
+					$post['item_image'] = $new_file_name . $_FILES['item_image']['name'][$i];
+					//$post['item_image'] = $new_file_name;
+					
+					$all_categories=@implode(',', $post['category_ids']);
+					
+					$data = array(
+						'name' => $post['item_name'],
+						'description' => $post['description'],
+						'price' => $post['item_price'],
+						'category_ids' => $post['category'],
+						'image' => $post['item_image'],
+					);
+					// SAVE POSTED DATA
+					Mage::helper('restaurant')->saveMenuItem($post);
+					
+					/*
+					$model = Mage::getModel('restaurant/item')->load($this->getRequest()->getParam('item_id'))->addData($data);
+					$ad_id = $this->getRequest()->getParam('item_id');
+					
+					try {
+						$model->setId($ad_id)->save();
+						// in order to see the below message printed, remove $this->_redirect("*i*i") statement below.
+						//echo "Data updated successfully.";
+					} catch (Exception $e){
+						echo $e->getMessage(); 
+					}*/
+				} catch(Exception $e) {
+					Mage::getSingleton('core/session')->addSuccess($e);
+					echo $e->getMessage();
 				}
-			} catch(Exception $e) {
-				Mage::getSingleton('core/session')->addSuccess($e);
-				echo $e->getMessage();
+				$this->_redirect("*/index/");
 			}
-			$this->_redirect("*/index/");
 		}
 	}
 	

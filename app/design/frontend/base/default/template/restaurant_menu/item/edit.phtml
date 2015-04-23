@@ -6,9 +6,10 @@
 	<div class="fieldset">
 		<?php echo $this->getBlockHtml('formkey') ?>
 		<h2 class="legend"><?php echo $this->__('Menu Item Information') ?></h2>
+		<input type='hidden' name='item_id' value='<?php echo $this->getRequest()->getParam('id'); ?>' />
 		<?php echo $this->getChildHtml("fieldset"); ?>
 		<?php /* ?>
-		<input type='hidden' name='item_id' value='<?php echo $this->getRequest()->getParam('id'); ?>' />
+		
 		<ul class="form-list" id='menu_item_form_fields'>
 			<div class='menu_item'>
 				<li>

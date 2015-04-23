@@ -48,15 +48,20 @@ class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data {
 	}
 	
 	public function saveMenuItem($data) {
-		/*
-		echo "<pre>";
-		print_r($data);
-		exit;
-		*/
+		$actionName = Mage::app()->getRequest()->getActionName();
+		$edit_mode = ($actionName == "update" && isset($data["item_id"]) && !empty($data["item_id"]));
+		
 		if(!empty($data)) {
-			$itemModel = Mage::getModel('restaurant/item');
-			$itemModel->setRestaurantMenuId($data['restaurantmenu_id'])
-				->setName($data['item_name'][0])
+			if($edit_mode) {
+				$itemModel = Mage::getModel('restaurant/item')->load($data["item_id"]);
+			} else {
+				$itemModel = Mage::getModel('restaurant/item');
+			}
+			
+			if(!$edit_mode) {
+				$itemModel->setRestaurantMenuId($data['restaurantmenu_id']);
+			}
+			$itemModel->setName($data['item_name'][0])
 				->setDescription($data['description'][0])
 				->setImage($data['item_image'])
 				->setSize($data['size'][0])
@@ -71,7 +76,12 @@ class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data {
 					->setFullOrderPrice($data['full_order_price'][0])
 					->setChildOrderPrice($data['child_order_price'][0]);
 			}
-			$itemModel->save();
+			
+			if($edit_mode) {
+				$itemModel->setId($data["item_id"])->save();
+			} else {
+				$itemModel->save();
+			}
 			$itemModel->unsetData();
 		}
 	}

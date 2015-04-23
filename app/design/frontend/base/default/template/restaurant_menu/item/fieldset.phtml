@@ -15,8 +15,8 @@ $actionName = Mage::app()->getRequest()->getActionName();
 $id = Mage::app()->getRequest()->getParam("id");
 $edit_mode = (($actionName == "edit") && isset($id) && !empty($id));
 global $item;
+$item = Mage::getModel('restaurant/item')->load($id);
 if( $edit_mode ) {
-	$item = Mage::getModel('restaurant/item')->load($id);
 	$name = $item->getName();
 	$description = $item->getDescription();
 	$size = $item->getSize();
@@ -130,7 +130,7 @@ function getSingleSizeFields() {
 	"<div class=\"field\">" .
 		"<label for=\"stores\" class=\"required\"><em>*</em>Price</label>" .
 		"<div class=\"input-box\">" .
-			"<input type=\"text\" name=\"single_size_price[]\" class=\"input-text required-entry\" value=\"" .  $item->getSingleSizePrice() . "\" />" .
+			"<input type=\"text\" name=\"single_size_price[]\" class=\"input-text required-entry\" value=\"" . $item->getSingleSizePrice() . "\" />" .
 		"</div>" .
 	"</div>" .
 "</li>";
