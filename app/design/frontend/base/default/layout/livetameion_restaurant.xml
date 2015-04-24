@@ -509,7 +509,7 @@
 		<reference name="content">
 			<block type="core/template" name="restaurant_menu" template="restaurant_menu/categoryset/coretemplate.phtml">
 				<block type="restaurant/menu" template="restaurant_menu/header.phtml" name="header" as="header" />
-				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/category/add.phtml" />
+				<block type="restaurant/menu" name="body_content" as="body_content" template="restaurant_menu/category/edit.phtml" />
 			</block>
         </reference>
     </livetameion_restaurant_category_edit>

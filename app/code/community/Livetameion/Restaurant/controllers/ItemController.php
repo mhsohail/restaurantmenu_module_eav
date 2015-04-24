@@ -146,14 +146,8 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 					$uplaoedFilename=$new_file_name.$_FILES['item_image']['name'][$i];
 					$uploader->save($path, $new_file_name.$_FILES['item_image']['name'][$i]);
 					//$uploader->save($path, $new_file_name);
-					$data['item_image'] = $new_file_name.$_FILES['item_image']['name'][$i];
+					$data['item_image'][$i] = $new_file_name.$_FILES['item_image']['name'][$i];
 					//$data['item_image'] = $new_file_name;
-					
-					// SAVE POSTED DATA
-					Mage::helper('restaurant')->saveMenuItem($data);
-					
-					Mage::getSingleton('core/session')->addSuccess('Successfully saved');
-					Mage::getSingleton('core/session')->settestData(false);
 					
 					// ENd SAVE POSTED DATA
 				} catch(Exception $e) {
@@ -162,6 +156,12 @@ class Livetameion_Restaurant_ItemController extends Mage_Core_Controller_Front_A
 				}
 			}
 		}
+		
+		// SAVE POSTED DATA
+		Mage::helper('restaurant')->saveMenuItem($data);
+		Mage::getSingleton('core/session')->addSuccess('Successfully saved');
+		Mage::getSingleton('core/session')->settestData(false);
+		
 		$this->_redirect("*/index/show/id/".$menu_id);
 	}
 	

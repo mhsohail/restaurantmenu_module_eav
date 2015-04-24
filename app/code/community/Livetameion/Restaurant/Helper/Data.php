@@ -50,6 +50,8 @@ class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data {
 	public function saveMenuItem($data) {
 		$actionName = Mage::app()->getRequest()->getActionName();
 		$edit_mode = ($actionName == "update" && isset($data["item_id"]) && !empty($data["item_id"]));
+		$ssp_counter = 0;
+		$msp_counter = 0;
 		
 		if(!empty($data)) {
 			for($i = 0; $i < count($data['item_name']); $i++) {
@@ -69,14 +71,14 @@ class Livetameion_Restaurant_Helper_Data extends Mage_Core_Helper_Data {
 					->setSize($data['size'][$i])
 					->setCategoryIds($data['category'][$i]);
 				if($data['size'][$i] == Livetameion_Restaurant_Model_Item::SINGLE_SIZE) {
-					$itemModel->setSingleSizePrice($data['single_size_price'][$i]);
+					$itemModel->setSingleSizePrice($data['single_size_price'][$ssp_counter++]);
 				} else {
-					$itemModel->setSmallSizePrice($data['small_size_price'][$i])
-						->setMediumSizePrice($data['medium_size_price'][$i])
-						->setLargeSizePrice($data['large_size_price'][$i])
-						->setHalfOrderPrice($data['half_order_price'][$i])
-						->setFullOrderPrice($data['full_order_price'][$i])
-						->setChildOrderPrice($data['child_order_price'][$i]);
+					$itemModel->setSmallSizePrice($data['small_size_price'][$msp_counter])
+						->setMediumSizePrice($data['medium_size_price'][$msp_counter])
+						->setLargeSizePrice($data['large_size_price'][$msp_counter])
+						->setHalfOrderPrice($data['half_order_price'][$msp_counter])
+						->setFullOrderPrice($data['full_order_price'][$msp_counter])
+						->setChildOrderPrice($data['child_order_price'][$msp_counter++]);
 				}
 				
 				if($edit_mode) {
