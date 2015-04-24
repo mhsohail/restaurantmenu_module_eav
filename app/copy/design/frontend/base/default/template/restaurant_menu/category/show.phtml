@@ -24,11 +24,11 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 //print_r($getAllCategoriesDATA);?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php //$collection = $this->getCollection(); ?>
-<?php $collection = Mage::getModel('restaurant/item')->getCollection()->addAttributeToFilter('restaurant_menu_id', $this->getRequest()->getParam('id')); ?>
+<?php $collection = Mage::getModel('restaurant/category')->getCollection()->addAttributeToFilter('categoryset_id', $this->getRequest()->getParam('id')); ?>
 
 <div class="page-title adverizent">
-	<h1><?php echo $this->__('Menu Items') ?></h1>
-	<a href="<?php echo $this->getUrl('restaurant/item/add/menuid/'.$this->getRequest()->getParam('id')); ?>" class="common-orange-button"><?php echo $this->__('Add Item'); ?></a><div class="clear"></div>
+	<h1><?php echo $this->__('Categories') ?></h1>
+	<a href="<?php echo $this->getUrl('restaurant/categoryset/add/categorysetid/'.$this->getRequest()->getParam('id')); ?>" class="common-orange-button"><?php echo $this->__('Add Category'); ?></a><div class="clear"></div>
 </div>
 <div style="clear:both"></div>
 <?php echo $this->getToolbarHtml(); ?>
@@ -45,49 +45,25 @@ $getAllCategoriesDATA= Mage::helper('restaurant')->getAllCategoriesDATA();
 				<th><?php echo $this->__('ID #') ?></th>
 				<th><?php echo $this->__('Name') ?></th>
 				<th><?php echo $this->__('Image') ?></th>
-				<th><?php echo $this->__('Description') ?></th>
-				<th><?php echo $this->__('Price') ?></th>
-				<th><?php echo $this->__('Category') ?></th>
 				<th><span class="nobr"><?php echo $this->__('Created') ?></span></th>
 				<th><span class="nobr"><?php echo $this->__('Action') ?></span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php $_odd = '';
-			$path = Mage::getBaseUrl('media') ."restaurant_menu/" ;
+			$path = Mage::getBaseUrl('media') ."restaurant_menu/";
 			?>
 			<?php foreach ($collection as $_obj): ?>
-				<?php $_obj = Mage::getModel('restaurant/item')->load($_obj->getEntityId())?>
+				<?php $_obj = Mage::getModel('restaurant/category')->load($_obj->getEntityId())?>
 				<tr>
 					<td><?php echo $_obj->getEntityId() ?></td>
 					<td><?php echo $_obj->getName() ?></td>
 					<td><span class="nobr"><img src="<?php echo $path.$_obj->getImage(); ?>" width="120"></span></td>
-					<td><?php echo $_obj->getDescription() ?></td>
-					<td>
-					<?php
-					if($_obj->getSize() == Livetameion_Restaurant_Model_Item::SINGLE_SIZE) {
-						echo "Single Size: " . $_obj->getSingleSizePrice();
-					} else {
-						echo "Small Size: " . $_obj->getSmallSizePrice() . "<br />";
-						echo "Medium Size: " . $_obj->getMediumSizePrice() . "<br />";
-						echo "Large Size: " . $_obj->getLargeSizePrice() . "<br />";
-						echo "Half Size: " . $_obj->getHalfOrderPrice() . "<br />";
-						echo "Full Size: " . $_obj->getFullOrderPrice() . "<br />";
-						echo "Child Size: " . $_obj->getChildOrderPrice();
-					}
-					?>
-					
-					</td>
-					<?php
-						$category_id = $_obj->getCategoryIds();
-						$category = Mage::getModel("restaurant/category")->load($category_id);
-					?>
-					<td><?php echo $category->getName(); ?></td>
 					<td><?php echo $this->formatDate($_obj->getCreatedTime()) ?></td>
 					<td>
-						<a href="<?php echo $this->getUrl('restaurant/item/delete', array('id' => $_obj->getEntityId())) ?>"><?php echo $this->__('Delete') ?></a>
+						<a href="<?php echo $this->getUrl('restaurant/categoryset/delete', array('id' => $_obj->getEntityId())) ?>"><?php echo $this->__('Delete') ?></a>
 						/
-						<a href="<?php echo $this->getUrl('restaurant/item/edit', array('mid' => $this->getRequest()->getParam('id'), 'id' => $_obj->getEntityId())) ?>"><?php echo $this->__('Edit') ?></a>
+						<a href="<?php echo $this->getUrl('restaurant/categoryset/edit', array('id' => $_obj->getEntityId())) ?>"><?php echo $this->__('Edit') ?></a>
 					</td>
 				</tr>
 			<?php endforeach; ?>

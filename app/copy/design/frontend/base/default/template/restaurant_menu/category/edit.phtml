@@ -1,32 +1,31 @@
 <div class="page-title">
-	<h1><?php echo $this->__('Menu Item - Edit') ?></h1>
+	<h1><?php echo $this->__('Category - Edit') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<form action="<?php echo $this->getUrl('*/item/update') ?>" method="post" id="form-validate-restaurant" enctype="multipart/form-data">
+<?php
+$category = Mage::getModel('restaurant/category')->load($this->getRequest()->getParam('id'));
+?>
+<form action="<?php echo $this->getUrl('*/*/update') ?>" method="post" id="form-validate-restaurant" enctype="multipart/form-data">
 	<div class="fieldset">
 		<?php echo $this->getBlockHtml('formkey') ?>
-		<h2 class="legend"><?php echo $this->__('Menu Item Information') ?></h2>
-		<input type='hidden' name='item_id' value='<?php echo $this->getRequest()->getParam('id'); ?>' />
-		<input type='hidden' name='menu_id' value='<?php echo $this->getRequest()->getParam('mid'); ?>' />
-		<?php echo $this->getChildHtml("fieldset"); ?>
-		<?php /* ?>
-		
+		<h2 class="legend"><?php echo $this->__('Category Information') ?></h2>
+		<input type='hidden' name='category_id' value='<?php echo $this->getRequest()->getParam('id'); ?>' />
 		<ul class="form-list" id='menu_item_form_fields'>
 			<div class='menu_item'>
 				<li>
 					<div class="field">
-						<label for="stores" class="required"><em>*</em><?php echo $this->__('Item Name') ?></label>
+						<label for="stores" class="required"><em>*</em><?php echo $this->__('Category Name') ?></label>
 						<div class="input-box">
-							<input type='text' name='item_name' class='input-text required-entry' value='<?php echo $item->getName(); ?>' />
+							<input type='text' name='name' class='input-text required-entry' value='<?php echo $category->getName(); ?>' />
 						</div>
 					</div>
 				</li>
-				
+				<?php /*
 				<li>
 					<div class="field">
 						<label for="stores" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
 						<div class="input-box">
-							<input type='text' name='item_price' class='input-text required-entry' value='<?php echo $item->getPrice(); ?>' />
+							<input type='text' name='price' class='input-text required-entry' value='<?php echo $category->getPrice(); ?>' />
 						</div>
 					</div>			
 				</li>
@@ -36,19 +35,21 @@
 						<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
 						<div class="input-box">
 							<select name='category' class='input-text required-entry'>
-								<?php
-								$categories = Mage::helper("restaurant")->getActiveCategories();
-								foreach($categories as $category) {
-									$category = Mage::getModel('restaurant/category')->load($category->getEntityId());
-									?>
-									<option value='<?php echo $this->__($category->getEntityId()) ?>'><?php echo $this->__($category->getName()) ?></option>
-									<?php
-								}
-								?>
+								<option>APPETIZERS & TAPAS</option>
+								<option>WOOD-FIRE SIGNATURES</option>
+								<option>SOUPS</option>
+								<option>PIZZA</option>
+								<option>SANDWICHES</option>
+								<option>PASTA</option>
+								<option>SEAFOOD</option>
+								<option>SIDES</option>
+								<option>DESSERTS</option>
+								<option>BEVERAGES</option>
 							</select>
 						</div>
 					</div>			
 				</li>
+				*/ ?>
 				
 				<li>
 					<div class="field">
@@ -56,10 +57,11 @@
 							<label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
 						</div>
 						<div class="input-box">
-							<input type="file" id="item_image" name='item_image' title="<?php echo $this->__('Image') ?>" class="input-text required-entry" />
+							<input type="file" id="item_image" name='image' title="<?php echo $this->__('Image') ?>" class="input-text required-entry" />
 						</div>
 					</div>
 				</li>
+				
 			</div>
 		</ul>
 		
@@ -72,7 +74,7 @@
 				</a>
 			</p>
 			<button type="submit" title="<?php echo $this->__('Update') ?>" class="button"><span><span><?php echo $this->__('Update') ?></span></span></button>
-		</div><?php */ ?>
+		</div>
 	</div>
 </form>
 

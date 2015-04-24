@@ -1,0 +1,55 @@
+<ul class="form-list" id='menu_item_form_fields'>
+	<div class='menu_item'>
+		<span class='delete_menu_item' onClick="delete_menu_item(this)">X</span>
+		<li>
+			<div class="field">
+				<label for="stores" class="required"><em>*</em><?php echo $this->__('Category Name') ?></label>
+				<div class="input-box">
+					<input type='text' name='name[]' class='input-text required-entry' />
+				</div>
+			</div>
+		</li>
+		<?php /*
+		<li>
+			<div class="field">
+				<label for="stores" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
+				<div class="input-box">
+					<input type='text' name='price[]' class='input-text required-entry' />
+				</div>
+			</div>			
+		</li>
+		
+		<li>
+			<div class="field">
+				<label for="category" class="required"><em>*</em><?php echo $this->__('Category') ?></label>
+				<div class="input-box">
+					<select name='category[]' class='input-text required-entry'>
+						<option>APPETIZERS & TAPAS</option>
+						<option>WOOD-FIRE SIGNATURES</option>
+						<option>SOUPS</option>
+						<option>PIZZA</option>
+						<option>SANDWICHES</option>
+						<option>PASTA</option>
+						<option>SEAFOOD</option>
+						<option>SIDES</option>
+						<option>DESSERTS</option>
+						<option>BEVERAGES</option>
+					</select>
+				</div>
+			</div>			
+		</li>
+		*/?>
+
+		<li>
+			<div class="field">
+				<div class="upload-head">
+					<label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
+				</div>
+				<div class="input-box">
+					<input type="file" id="item_image" name='image[]' title="<?php echo $this->__('Image') ?>" class="input-text required-entry" />
+				</div>
+			</div>
+		</li>
+		
+	</div>
+</ul>

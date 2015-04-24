@@ -1,0 +1,23 @@
+<style>
+.menu_item {
+	border:1px solid grey;
+	padding:5px;
+	margin-bottom:5px;
+}
+
+.delete_menu_item {
+	float:right;
+	cursor:pointer;
+}
+</style>
+<div class="page-title">
+	<h1><?php echo $this->__('Restaurant Menu - Add') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('*/*/save') ?>" method="post" id="form-validate-restaurant" enctype="multipart/form-data">
+	<div class="fieldset">
+		<?php echo $this->getBlockHtml('formkey') ?>
+		<h2 class="legend"><?php echo $this->__('Restaurant Menu Information') ?></h2>
+		<?php echo $this->getChildHtml("fieldset"); ?>
+	</div>
+</form>
