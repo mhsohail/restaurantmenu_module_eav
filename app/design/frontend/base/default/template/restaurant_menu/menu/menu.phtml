@@ -24,7 +24,12 @@ $getAllCategoriesDATA = Mage::helper('restaurant')->getAllCategoriesDATA();
 //print_r($getAllCategoriesDATA);?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php //$collection = $this->getCollection(); ?>
-<?php $collection = Mage::getModel('restaurant/menu')->getCollection(); ?>
+<?php
+// get vendor from vendor logged in session
+$vendor = Mage::getSingleton('udropship/session');
+$vendor_id = $vendor->getVendorId();
+$collection = Mage::getModel('restaurant/menu')->getCollection()->addAttributeToFilter('merchant_id', $vendor_id);
+?>
 
 <div class="page-title adverizent">
 	<h1><?php echo $this->__('My Menus') ?></h1>
